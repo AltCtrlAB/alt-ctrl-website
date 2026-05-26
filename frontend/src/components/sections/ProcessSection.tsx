@@ -14,7 +14,7 @@ export default function ProcessSection() {
         <div className="container-site space-y-12">
 
           <div className="text-center space-y-2">
-            <p className="font-mono text-accent text-xs tracking-widest uppercase">
+            <p className="font-mono text-accent-label text-xs tracking-widest uppercase">
               Hur vi jobbar
             </p>
             <h2
@@ -42,13 +42,13 @@ export default function ProcessSection() {
                   <div className="flex flex-col items-center flex-shrink-0">
                     <div
                       className="w-10 h-10 rounded-full border-2 border-accent flex items-center
-                        justify-center font-mono font-bold text-accent text-sm bg-background z-10
+                        justify-center font-mono font-bold text-accent-label text-sm bg-background z-10
                         flex-shrink-0"
                     >
                       {step.step}
                     </div>
                     {!isLast && (
-                      <div className="w-[2px] bg-accent/20 flex-1 mt-2" style={{ minHeight: '2.5rem' }} />
+                      <div className="w-[2px] bg-accent/30 flex-1 mt-2" style={{ minHeight: '2.5rem' }} />
                     )}
                   </div>
 

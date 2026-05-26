@@ -8,50 +8,51 @@
 @import "tailwindcss";
 
 /* ============================================================
-   CSS Custom Properties — extracted from Alt_Ctrl PDF streams
+   CSS Custom Properties
    ============================================================ */
 
 :root {
   /* ── Backgrounds ── */
-  --background:      #14191B;   /* PDF primary bg — near-black with green tint */
-  --surface:         #2D3437;   /* PDF surface fill — card / section bg        */
-  --surface-raised:  #3A4144;   /* Elevated cards                               */
-  --muted:           #2D3437;   /* Muted section bg                             */
+  --background:      #F5F2EE;   /* Warm cream — clearly distinct from white      */
+  --surface:         #FFFFFF;   /* Pure white — primary section / card bg        */
+  --surface-raised:  #EEECE8;   /* Warm elevated — hover states, raised cards    */
+  --muted:           #F0EDE9;   /* Muted section bg                              */
 
   /* ── Foregrounds ── */
-  --foreground:         #FFFFFF; /* White — primary text                        */
-  --foreground-muted:   #EBEBE7; /* PDF off-white — secondary text              */
-  --foreground-subtle:  #9EA5AA; /* Raised for WCAG AA — 6.73:1 on bg, 4.65:1 on surface */
-  --muted-foreground:   #9EA5AA;
+  --foreground:         #1A1A1A; /* Near-black — headings                        */
+  --foreground-muted:   #2D2D2D; /* Dark — body text                             */
+  --foreground-subtle:  #5C5C5C; /* Medium warm grey — secondary / supporting    */
+  --muted-foreground:   #5C5C5C;
 
-  /* ── Brand Accent — the green from the PDF ── */
-  --accent:            #1CB954; /* Brand green — hover, icons, highlights       */
-  --accent-foreground: #14191B; /* Text on green                                */
-  --cta:               #1CB954; /* CTA button fill                              */
-  --cta-hover:         #17A348; /* CTA hover (darker green)                     */
-  --ring:              #1CB954; /* Focus rings                                  */
+  /* ── Brand Accent ── */
+  --accent:            #1CB954; /* Brand green — icons, backgrounds, large nums  */
+  --accent-foreground: #FFFFFF; /* White text on green                           */
+  --accent-label:      #0F7A36; /* Darker green (5.2:1 on white) — small labels */
+  --cta:               #1CB954; /* CTA button fill                               */
+  --cta-hover:         #17A348; /* CTA hover (darker green)                      */
+  --ring:              #1CB954; /* Focus rings                                   */
 
-  /* ── Primary (white-on-dark buttons) ── */
-  --primary:            #FFFFFF;
-  --primary-foreground: #14191B;
+  /* ── Primary ── */
+  --primary:            #1A1A1A;
+  --primary-foreground: #FFFFFF;
 
   /* ── Secondary ── */
-  --secondary:            #2D3437;
-  --secondary-foreground: #EBEBE7;
+  --secondary:            #EEECE8;
+  --secondary-foreground: #2D2D2D;
 
   /* ── Cards / Popovers ── */
-  --card:            #2D3437;
-  --card-foreground: #EBEBE7;
-  --popover:         #2D3437;
-  --popover-foreground: #EBEBE7;
+  --card:            #FFFFFF;
+  --card-foreground: #2D2D2D;
+  --popover:         #FFFFFF;
+  --popover-foreground: #2D2D2D;
 
   /* ── Borders / Inputs ── */
-  --border: #44546A; /* PDF slate                                               */
-  --input:  #2D3437;
+  --border: #E0DBD5; /* Warm grey dividers — visible but not harsh              */
+  --input:  #FFFFFF;
 
   /* ── Destructive ── */
-  --destructive:            #EF4444;
-  --destructive-foreground: #FAFAFA;
+  --destructive:            #DC2626;
+  --destructive-foreground: #FFFFFF;
 
   /* ── Border radius ── */
   --radius: 0.375rem;
@@ -76,19 +77,23 @@
   --section-py:    clamp(4rem, 8vw, 7rem);
   --section-px:    clamp(1rem, 5vw, 2rem);
 
+  /* ── Shadows (UI Designer) ── */
+  --card-shadow:       0 1px 4px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --card-shadow-hover: 0 6px 20px rgba(0,0,0,0.09), 0 2px 6px rgba(0,0,0,0.05);
+
   /* ── Gradients & effects ── */
-  --gradient-cta:  linear-gradient(135deg, #1CB954 0%, #14A84A 100%);
-  --glow-accent:   0 0 24px rgba(28, 185, 84, 0.25);
-  --glow-accent-lg: 0 0 48px rgba(28, 185, 84, 0.35);
+  --gradient-cta:   linear-gradient(135deg, #1CB954 0%, #14A84A 100%);
+  --glow-accent:    0 0 20px rgba(28, 185, 84, 0.20);
+  --glow-accent-lg: 0 0 40px rgba(28, 185, 84, 0.28);
 
   /* ── Hero background ── */
-  --hero-dot-color:  rgba(255, 255, 255, 0.09);
-  --hero-glow:       radial-gradient(ellipse 90% 60% at 50% 35%, rgba(28, 185, 84, 0.11) 0%, transparent 70%);
+  --hero-dot-color:  rgba(0, 0, 0, 0.09);
+  --hero-bg:         linear-gradient(180deg, #FFFFFF 0%, #F5F2EE 100%);
+  --hero-glow:       radial-gradient(ellipse 90% 60% at 50% 35%, rgba(28, 185, 84, 0.10) 0%, transparent 70%);
 }
 
 /* ============================================================
    Tailwind v4 @theme — maps every CSS var to a Tailwind utility
-   e.g. bg-background, text-accent, border-border, ring-ring …
    ============================================================ */
 @theme inline {
   /* Colors */
@@ -102,6 +107,7 @@
 
   --color-accent:             var(--accent);
   --color-accent-foreground:  var(--accent-foreground);
+  --color-accent-label:       var(--accent-label);
   --color-cta:                var(--cta);
   --color-cta-hover:          var(--cta-hover);
 
@@ -169,6 +175,14 @@
   box-shadow: var(--glow-accent-lg);
 }
 
+@utility card-shadow {
+  box-shadow: var(--card-shadow);
+}
+
+@utility card-shadow-hover {
+  box-shadow: var(--card-shadow-hover);
+}
+
 @utility text-balance {
   text-wrap: balance;
 }
@@ -185,7 +199,7 @@
 }
 
 html {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
@@ -207,7 +221,7 @@ body {
 
 /* Selection highlight using brand green */
 ::selection {
-  background-color: rgba(28, 185, 84, 0.3);
+  background-color: rgba(28, 185, 84, 0.18);
   color: var(--foreground);
 }
 
@@ -216,10 +230,10 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--background);
+  background: var(--surface-raised);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--border);
+  background: #C8C3BB;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {

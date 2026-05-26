@@ -17,7 +17,7 @@ export default function Footer() {
       {/* Animated gradient background */}
       {!reducedMotion && (
         <motion.div
-          className="absolute inset-0 opacity-30 pointer-events-none"
+          className="absolute inset-0 opacity-[0.06] pointer-events-none"
           style={{
             background: 'var(--gradient-cta)',
             backgroundSize: '400% 400%',
@@ -54,7 +54,7 @@ export default function Footer() {
 
           {/* Col 2 — Navigation */}
           <div className="space-y-4">
-            <p className="text-foreground-subtle text-xs font-mono tracking-widest uppercase">
+            <p className="text-accent-label text-xs font-mono tracking-widest uppercase">
               Navigera
             </p>
             <ul className="space-y-2" role="list">
@@ -73,7 +73,7 @@ export default function Footer() {
 
           {/* Col 3 — Services & Info */}
           <div className="space-y-4">
-            <p className="text-foreground-subtle text-xs font-mono tracking-widest uppercase">
+            <p className="text-accent-label text-xs font-mono tracking-widest uppercase">
               Tjänster
             </p>
             <div className="flex flex-wrap gap-2">

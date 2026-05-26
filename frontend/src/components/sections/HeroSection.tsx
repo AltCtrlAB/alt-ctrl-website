@@ -29,7 +29,8 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative min-h-screen bg-background flex items-center overflow-hidden"
+      className="relative min-h-screen flex items-center overflow-hidden"
+      style={{ background: 'var(--hero-bg)' }}
       aria-label="Introduktion"
     >
       {/* ── Dot grid ── */}

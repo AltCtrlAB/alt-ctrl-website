@@ -75,7 +75,7 @@ export default function BookingCTA() {
       {/* Content */}
       <div className="relative container-site py-24 text-center space-y-6">
         <motion.p
-          className="font-mono text-accent-foreground/70 text-sm tracking-widest uppercase"
+          className="font-mono text-accent-foreground/80 text-xs tracking-widest uppercase"
           initial={reducedMotion ? false : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

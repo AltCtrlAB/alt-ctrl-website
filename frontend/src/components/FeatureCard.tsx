@@ -33,14 +33,14 @@ export default function FeatureCard({
       <Card
         className={cn(
           'relative h-full bg-surface border-border',
-          'transition-all duration-250',
-          'hover:-translate-y-1 hover:bg-surface-raised hover:border-accent/40',
-          'hover:shadow-[var(--glow-accent)]',
+          'transition-all duration-300',
+          'hover:-translate-y-[5px] hover:scale-[1.01] hover:bg-surface hover:border-accent/40',
+          'hover:shadow-[var(--card-shadow-hover)]',
         )}
       >
         {number && (
           <span
-            className="absolute top-4 right-4 font-mono text-xs text-foreground-subtle select-none"
+            className="absolute top-4 right-4 font-mono text-xs text-accent-label select-none"
             aria-hidden="true"
           >
             {number}

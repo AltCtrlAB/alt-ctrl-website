@@ -56,7 +56,7 @@ export default function Navbar() {
             <li key={link.href}>
               <button
                 onClick={() => scrollTo(link.href)}
-                className="group px-3 py-2 text-sm font-sans text-foreground-muted hover:text-foreground transition-colors duration-150 cursor-pointer rounded-md hover:bg-surface focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-2"
+                className="group px-3 py-2 text-sm font-sans text-foreground-muted hover:text-foreground transition-colors duration-150 cursor-pointer rounded-md hover:bg-surface-raised focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-2"
               >
                 <span className="relative">
                   {link.label}

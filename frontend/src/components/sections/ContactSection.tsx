@@ -12,7 +12,7 @@ export default function ContactSection() {
           {/* ── Left: contact info ── */}
           <div className="space-y-6">
             <div className="space-y-2">
-              <p className="font-mono text-accent text-xs tracking-widest uppercase">Kontakt</p>
+              <p className="font-mono text-accent-label text-xs tracking-widest uppercase">Kontakt</p>
               <h2
                 id="contact-heading"
                 className="font-mono font-bold text-foreground"

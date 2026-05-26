@@ -9,7 +9,7 @@ function Stat35() {
   return (
     <div ref={ref}>
       <p
-        className="font-mono font-bold text-accent"
+        className="font-mono font-bold text-accent tracking-tight"
         style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', lineHeight: 1 }}
       >
         {display}
@@ -42,7 +42,7 @@ export default function AboutSection() {
 
           {/* Left: prose intro */}
           <div className="space-y-4">
-            <p className="font-mono text-accent text-xs tracking-widest uppercase">Om oss</p>
+            <p className="font-mono text-accent-label text-xs tracking-widest uppercase">Om oss</p>
             <h2
               id="about-heading"
               className="font-mono font-bold text-foreground text-balance"
@@ -66,7 +66,7 @@ export default function AboutSection() {
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.4, delay: i * 0.1, ease: [0, 0, 0.2, 1] }}
               >
-                <p className="font-mono text-accent text-xs tracking-widest">{d.number}</p>
+                <p className="font-mono text-accent-label text-xs tracking-widest">{d.number}</p>
                 <p className="text-foreground-subtle text-sm leading-relaxed">{d.text}</p>
               </motion.div>
             ))}
@@ -76,7 +76,7 @@ export default function AboutSection() {
         {/* ── Part 2: Cost-of-inaction metrics ── */}
         <div className="space-y-6">
           <div className="space-y-2">
-            <p className="font-mono text-accent text-xs tracking-widest uppercase">
+            <p className="font-mono text-accent-label text-xs tracking-widest uppercase">
               Vad kostar det att inte göra något?
             </p>
             <h3
@@ -91,7 +91,7 @@ export default function AboutSection() {
             {company.costMetrics.map((metric, i) => (
               <motion.div
                 key={metric.value}
-                className="border border-border/50 rounded-lg p-6 bg-background/40 space-y-3"
+                className="border border-border rounded-lg p-6 bg-surface-raised space-y-3"
                 initial={reducedMotion ? false : { opacity: 0, y: 24 }}
                 whileInView={reducedMotion ? {} : { opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}

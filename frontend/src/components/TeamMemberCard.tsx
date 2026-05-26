@@ -27,8 +27,9 @@ export default function TeamMemberCard({
       <Card
         className={cn(
           'h-full bg-surface border-border',
-          'transition-all duration-250',
-          'hover:-translate-y-1 hover:bg-surface-raised hover:border-accent/40',
+          'transition-all duration-300',
+          'hover:-translate-y-[5px] hover:scale-[1.01] hover:border-accent/40',
+          'hover:shadow-[var(--card-shadow-hover)]',
         )}
       >
         <CardContent className="p-6 space-y-4">

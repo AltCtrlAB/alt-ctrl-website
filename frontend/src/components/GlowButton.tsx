@@ -17,7 +17,7 @@ const glowButtonVariants = cva(
         secondary:
           'bg-surface text-foreground border border-border hover:bg-surface-raised',
         outline:
-          'bg-transparent text-foreground border border-border hover:border-accent hover:text-accent',
+          'bg-transparent text-foreground font-medium border border-border hover:border-accent hover:text-accent',
       },
       size: {
         sm: 'text-xs px-3 min-h-[36px]',

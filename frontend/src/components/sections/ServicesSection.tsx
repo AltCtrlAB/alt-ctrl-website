@@ -16,7 +16,7 @@ export default function ServicesSection() {
         {/* ── Sub-section 1: Problems ── */}
         <div className="space-y-10">
           <div className="text-center space-y-2">
-            <p className="font-mono text-accent text-xs tracking-widest uppercase">
+            <p className="font-mono text-accent-label text-xs tracking-widest uppercase">
               Problemen ni känner igen
             </p>
             <h2
@@ -45,7 +45,7 @@ export default function ServicesSection() {
         {/* ── Sub-section 2: Approach ── */}
         <div className="space-y-10">
           <div className="text-center space-y-2">
-            <p className="font-mono text-accent text-xs tracking-widest uppercase">
+            <p className="font-mono text-accent-label text-xs tracking-widest uppercase">
               Vår approach
             </p>
             <h2
@@ -60,7 +60,7 @@ export default function ServicesSection() {
             {company.approach.map((a, i) => (
               <motion.div
                 key={a.number}
-                className="border border-border/50 bg-surface/40 rounded-lg p-6 transition-all duration-250 hover:border-accent/40 hover:bg-surface-raised cursor-default"
+                className="border border-border bg-surface rounded-lg p-6 transition-all duration-250 hover:border-accent/40 hover:bg-surface-raised cursor-default"
                 initial={reducedMotion ? false : { opacity: 0, y: 32 }}
                 whileInView={reducedMotion ? {} : { opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}

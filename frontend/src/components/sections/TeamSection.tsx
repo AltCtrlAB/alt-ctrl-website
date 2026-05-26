@@ -8,7 +8,7 @@ export default function TeamSection() {
       <div className="container-site space-y-10">
 
         <div className="text-center space-y-2">
-          <p className="font-mono text-accent text-xs tracking-widest uppercase">Teamet</p>
+          <p className="font-mono text-accent-label text-xs tracking-widest uppercase">Teamet</p>
           <h2
             id="team-heading"
             className="font-mono font-bold text-foreground text-balance mx-auto max-w-2xl"

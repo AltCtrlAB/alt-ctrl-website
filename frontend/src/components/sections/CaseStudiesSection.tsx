@@ -18,7 +18,7 @@ function Metric300k() {
   return (
     <div ref={ref}>
       <p
-        className="font-mono font-bold text-accent"
+        className="font-mono font-bold text-accent tracking-tight"
         style={{ fontSize: 'clamp(1.75rem, 4vw, 3rem)', lineHeight: 1.1 }}
       >
         {display}
@@ -46,8 +46,9 @@ function CaseStudyCard({ study, delay = 0, animateMetric = false }: CaseStudyCar
       className="group h-full"
     >
       <Card
-        className="h-full bg-background border-border transition-all duration-250
-          hover:-translate-y-1 hover:border-accent/40 hover:shadow-[var(--glow-accent)]"
+        className="h-full bg-surface border-border transition-all duration-300
+          hover:-translate-y-[5px] hover:scale-[1.01] hover:border-accent/40
+          hover:shadow-[var(--card-shadow-hover)]"
       >
         <CardContent className="p-6 flex flex-col gap-4 h-full">
 
@@ -64,7 +65,7 @@ function CaseStudyCard({ study, delay = 0, animateMetric = false }: CaseStudyCar
             <Metric300k />
           ) : (
             <p
-              className="font-mono font-bold text-accent"
+              className="font-mono font-bold text-accent tracking-tight"
               style={{ fontSize: 'clamp(1.75rem, 4vw, 3rem)', lineHeight: 1.1 }}
             >
               {study.metric}
@@ -101,7 +102,7 @@ export default function CaseStudiesSection() {
       <div className="container-site space-y-10">
 
         <div className="text-center space-y-2">
-          <p className="font-mono text-accent text-xs tracking-widest uppercase">
+          <p className="font-mono text-accent-label text-xs tracking-widest uppercase">
             Referenscase
           </p>
           <h2
