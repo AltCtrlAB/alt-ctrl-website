@@ -52,7 +52,7 @@ export default function ServicesSection() {
               className="font-mono font-bold text-foreground text-balance mx-auto max-w-2xl"
               style={{ fontSize: 'clamp(1.5rem, 3vw, 2.5rem)' }}
             >
-              Vi hittar rätt — och levererar.
+              Vi hittar rätt, och levererar.
             </h2>
           </div>
 

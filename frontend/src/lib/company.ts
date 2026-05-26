@@ -14,30 +14,33 @@ export const company = {
   year: 2026,
 
   // ── Messaging ─────────────────────────────────────────────────────────────
-  tagline: 'Vi hittar var er tid och era pengar läcker — och täpper till det.',
-  taglineEn: 'We find where your time and money are leaking — and plug it.',
-  pitch: 'På ett bolag som ert tar manuella processer mer tid än ni tror.',
+  tagline: 'Era processer kostar mer än ni tror. Vi visar exakt var, och fixar det.',
+  taglineEn: 'Your processes cost more than you think. We show you exactly where, and fix it.',
+  pitch: 'Svenska bolag med 20–300 anställda tappar hundratusentals kronor årligen på processer som borde vara automatiserade. De flesta vet inte ens var.',
+
+  // ── Hero rotating words ───────────────────────────────────────────────────
+  heroWords: ['Snabbare beslut', 'Lägre kostnader', 'Smartare processer', 'Färre manuella steg'] as const,
 
   // ── Services ──────────────────────────────────────────────────────────────
-  services: ['Business', 'Strategi', 'AI', 'Automation'] as const,
+  services: ['Rapportering', 'Compliance', 'Produktdata', 'Manuella flöden'] as const,
 
   // ── The Problem (page 2) ──────────────────────────────────────────────────
   problems: [
     {
       number: '01',
-      title: 'Datan finns — men används inte rätt',
+      title: 'Rapporter som borde ta en timme tar en dag',
       description:
-        'Rapporter som borde ta en timme tar en dag, för att informationen sitter utspridd på fel ställen i organisationen.',
+        'Informationen finns i era system. Men att få ut den i rätt format, till rätt person, i tid. Det är där halvdagar försvinner.',
     },
     {
       number: '02',
-      title: 'Ni har systemen — men jobbar ändå i Excel',
+      title: 'Systemen pratar inte med varandra, ni är limmet',
       description:
-        'Flödet stannar upp i manuella steg mellan systemen. Det är där tid och energi försvinner — varje dag.',
+        'Ni har investerat i CRM, ERP och rapportverktyg. Men mellan systemen sitter någon och kopierar data manuellt. Varje dag.',
     },
     {
       number: '03',
-      title: 'AI på agendan — men var börjar man?',
+      title: 'AI på agendan, men var börjar man?',
       description:
         'Alla pratar om AI. Få vet vilket problem de ska lösa med det. Fel start kostar mer än det ger.',
     },
@@ -49,19 +52,19 @@ export const company = {
       value: '200–300 KKR',
       label: 'per person · per år',
       description:
-        'En medarbetare som lägger 30 % av sin tid på manuell administration — räknat i förlorad produktionskapacitet.',
+        'En medarbetare med 45 000 kr/mån som lägger 30 % av sin tid på manuell administration. Räknat i förlorad produktionskapacitet. Baserat på vår kartläggning.',
     },
     {
       value: '35',
       label: 'processer per bolag',
       description:
-        'De flesta bolag i er storlek har 35 processer där detta sker systematiskt. Ni är förmodligen inte undantagna.',
+        'Bolag i er storlek har i snitt 35 processer med manuella steg som kan automatiseras. Baserat på vår kartläggning av svenska bolag med 20–300 anställda.',
     },
     {
       value: '2×',
       label: 'per regulatoriskt krav',
       description:
-        'Manuell compliance kostar en gång i tid, och en gång i regulatorisk risk — bötesexponering och liability.',
+        'Manuell compliance kostar en gång i tid, och en gång i regulatorisk risk, bötesexponering och liability.',
     },
   ],
 
@@ -94,21 +97,21 @@ export const company = {
       duration: '2 – 3 veckor',
       phase: 'Förstudie',
       description:
-        'Vi kartlägger var tid och pengar läcker. Identifierar era mest lönsamma förbättringsområden. Ni får en prioriteringslista med estimerad effekt i tid och kronor.',
+        'Vi kartlägger var tid och pengar försvinner. Ni får en prioriteringslista med estimerad effekt i tid och kronor, så ni vet exakt vad varje förbättring är värd innan ni beslutar.',
     },
     {
       step: '02',
       duration: '4 – 16 veckor',
       phase: 'Implementation',
       description:
-        'Vi bygger och implementerar utan att byta system eller leverantör. Verktygen anpassas till hur ni faktiskt jobbar — inte tvärtom.',
+        'Vi bygger smarta lösningar i er befintliga miljö: automation, AI-verktyg och integrationer anpassade efter era faktiska flöden. Utan att byta system eller leverantör.',
     },
     {
       step: '03',
       duration: 'Löpande',
-      phase: 'Iterera & förvalta',
+      phase: 'Mät, justera, bygg vidare',
       description:
-        'Vi mäter, justerar och bygger vidare. Många engagemang övergår i löpande samarbete med tydliga mätpunkter och effektmål.',
+        'Vi följer upp med tydliga mätpunkter: tid sparad, kostnad reducerad, processer eliminerade. Många kunder väljer löpande samarbete där vi kontinuerligt identifierar nästa förbättring.',
     },
   ],
 
@@ -117,7 +120,7 @@ export const company = {
     {
       category: 'Hållbarhetsrapportering',
       title: 'Manuell insamling automatiserad',
-      client: 'Processindustribolag',
+      client: 'Processindustribolag, ~150 anställda',
       description:
         'Manuell insamling och sammanställning band upp en heltidstjänst delar av året. Vi automatiserade flödet i deras befintliga miljö.',
       metric: '~300 000 kr',
@@ -125,17 +128,17 @@ export const company = {
     },
     {
       category: 'AI in the loop',
-      title: 'Produktinformation på minuter',
-      client: 'Stor biltillverkare, Göteborg',
+      title: 'Från 40 timmar till 2. Per produkt.',
+      client: 'Produktbolag, industri, ~80 anställda',
       description:
-        'Att skapa produktinformation per produkt tog 40 timmar — manuellt och inkonsistent. Med AI in the loop kortades flödet drastiskt.',
+        'Att skapa produktinformation per produkt tog 40 timmar, manuellt och inkonsistent. Med AI in the loop kortades flödet drastiskt.',
       metric: '40h → 2h',
       metricLabel: 'Per produkt',
     },
     {
       category: 'Cybersäkerhet & NIS2',
       title: 'Compliance som inte kostar',
-      client: 'Industribolag, Supply chain',
+      client: 'Industribolag med 200+ leverantörer',
       description:
         'Manuell hantering av leverantörscompliance var kostsam och skapade regulatorisk exponering. Vi byggde ett strömlinjeformat flöde.',
       metric: '~1,5 MSEK',
@@ -147,7 +150,7 @@ export const company = {
   differentiators: [
     {
       number: '01',
-      text: 'Vi förstår verksamheten först, tekniken sedan — inte tvärtom. Beslutet ska vara begripligt för ledning innan en rad kod skrivs.',
+      text: 'Vi förstår verksamheten först, tekniken sedan, inte tvärtom. Beslutet ska vara begripligt för ledning innan en rad kod skrivs.',
     },
     {
       number: '02',
@@ -155,7 +158,7 @@ export const company = {
     },
     {
       number: '03',
-      text: 'Vi har jobbat med allt från Volvo och Stena till bolag i er storlek. Samma metodik — anpassad till er kontext.',
+      text: 'Teamet har bakgrund från storbolag och managementkonsulting, men vi bygger för bolag som vill ha snabb effekt utan enterprise-overhead.',
     },
   ],
 
@@ -165,19 +168,19 @@ export const company = {
       initials: 'MM',
       name: 'Magnus Melén',
       role: 'Strategi & Compliance',
-      bio: 'Management consulting, hållbarhet, processer och NIS2. Förstår hur beslut fattas i komplexa organisationer och vad som faktiskt driver förändring.',
+      bio: 'Leder förstudier och kartläggningar. Bakgrund från managementkonsulting med fokus på hållbarhet, compliance och NIS2. Förstår hur beslut fattas och vad som krävs för att en förändring faktiskt händer.',
     },
     {
       initials: 'FA',
       name: 'Foad Alhayek',
       role: 'AI & Automation',
-      bio: 'AI/ML-expert med djup kunskap i Python och moderna AI-verktyg. Bygger produktionsfärdiga AI-lösningar som faktiskt levererar värde i verksamheten.',
+      bio: 'Bygger automatiseringar och AI-lösningar som faktiskt hamnar i produktion. Djup kunskap i Python och moderna AI-verktyg, med fokus på att lösa verkliga problem, inte teknikdemos.',
     },
     {
       initials: 'JP',
       name: 'Jonathan Persson',
-      role: 'Fullstack & Operationer',
-      bio: 'Fullstack-utvecklare med starkt ben i både utveckling, processer och operations. Bygger lösningarna och ser till att de faktiskt levererar effekt i den dagliga driften.',
+      role: 'Fullstack & Ops',
+      bio: 'Bygger lösningarna och driver leveransen. Fullstack-utvecklare med bakgrund i operations och sälj. Ser till att det vi levererar faktiskt funkar i er vardag.',
     },
   ],
 

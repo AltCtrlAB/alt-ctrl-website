@@ -24,7 +24,7 @@ export default function ContactSection() {
 
             <p className="text-foreground-subtle text-base leading-relaxed max-w-sm">
               Skicka ett meddelande så återkommer vi inom en arbetsdag.
-              Eller maila direkt — vi svarar snabbt.
+              Eller maila direkt, vi svarar snabbt.
             </p>
 
             <div className="space-y-3 pt-2">

@@ -93,7 +93,7 @@ export default function BookingCTA() {
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.1 }}
         >
-          Vi börjar med en förstudie.
+          Boka en kostnadsfri genomgång.
         </motion.h2>
 
         <motion.p
@@ -103,9 +103,7 @@ export default function BookingCTA() {
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.2 }}
         >
-          På 2–3 veckor identifierar vi era mest lönsamma förbättringsområden —
-          med estimerad effekt i tid och kronor. Ni vet exakt vad det är värt
-          innan ni beslutar om implementation.
+          På 30 minuter visar vi var era största tidsläckor sitter, och vad det kostar er att inte göra något åt dem.
         </motion.p>
 
         <motion.div

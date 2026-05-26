@@ -45,9 +45,9 @@ export default function Navbar() {
           href="#"
           onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
           className="font-mono font-bold text-foreground text-lg tracking-tight hover:text-accent transition-colors duration-150 cursor-pointer"
-          aria-label="alt_ctrl_ — gå till toppen"
+          aria-label="alt_ctrl_, gå till toppen"
         >
-          {company.name}
+          alt_<span className="text-accent">ctrl_</span>
         </a>
 
         {/* Desktop nav */}
@@ -113,7 +113,7 @@ export default function Navbar() {
             className="bg-surface border-border w-72"
           >
             <SheetTitle className="font-mono text-foreground mb-6">
-              {company.name}
+              alt_<span className="text-accent">ctrl_</span>
             </SheetTitle>
             <nav aria-label="Mobile navigation">
               <ul className="flex flex-col gap-1" role="list">

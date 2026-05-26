@@ -1,15 +1,27 @@
-import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react'
+import { useEffect, useState } from 'react'
+import { motion, AnimatePresence, useScroll, useTransform, useReducedMotion } from 'motion/react'
 import { ArrowRight, ChevronDown } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import AnimatedText from '@/components/AnimatedText'
 import GlowButton from '@/components/GlowButton'
 import FloatingParticles from '@/components/FloatingParticles'
 import { company } from '@/lib/company'
+
+const rotatingWords = [...company.heroWords]
 
 export default function HeroSection() {
   const reducedMotion = useReducedMotion()
   const { scrollY } = useScroll()
   const particlesY = useTransform(scrollY, [0, 600], [0, 180])
+
+  const [wordIndex, setWordIndex] = useState(0)
+
+  useEffect(() => {
+    if (reducedMotion) return
+    const id = setInterval(
+      () => setWordIndex((i) => (i + 1) % rotatingWords.length),
+      2200,
+    )
+    return () => clearInterval(id)
+  }, [reducedMotion])
 
   function scrollToAbout() {
     document.getElementById('om-oss')?.scrollIntoView({ behavior: 'smooth' })
@@ -20,6 +32,23 @@ export default function HeroSection() {
       className="relative min-h-screen bg-background flex items-center overflow-hidden"
       aria-label="Introduktion"
     >
+      {/* ── Dot grid ── */}
+      <div
+        className="absolute inset-0 pointer-events-none select-none"
+        style={{
+          backgroundImage: 'radial-gradient(circle, var(--hero-dot-color) 1px, transparent 1px)',
+          backgroundSize: '28px 28px',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* ── Radial accent glow ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'var(--hero-glow)' }}
+        aria-hidden="true"
+      />
+
       {/* ── Parallax particles layer ── */}
       {reducedMotion ? (
         <FloatingParticles count={25} />
@@ -37,42 +66,65 @@ export default function HeroSection() {
       <div className="relative z-10 container-site py-28 w-full">
         <div className="text-center space-y-8 max-w-4xl mx-auto">
 
-          {/* Service badges */}
-          <motion.div
-            className="flex flex-wrap gap-2 justify-center"
+          {/* ── Headline with rotating word ── */}
+          <motion.h1
+            className="font-mono font-bold text-foreground text-balance mx-auto"
             initial={reducedMotion ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: [0, 0, 0.2, 1] }}
+            transition={{ duration: 0.4, delay: 0.2, ease: [0, 0, 0.2, 1] }}
           >
-            {company.services.map((s) => (
-              <Badge
-                key={s}
-                variant="outline"
-                className="border-accent/40 text-accent font-mono text-xs tracking-wider"
-              >
-                {s}
-              </Badge>
-            ))}
-          </motion.div>
+            {/* Static line */}
+            <span
+              className="block"
+              style={{ fontSize: 'clamp(2.4rem, 6vw, 4.5rem)', lineHeight: 1.2 }}
+            >
+              Er partner inom
+            </span>
 
-          {/* Headline */}
-          <h1
-            className="font-mono font-bold text-foreground text-balance mx-auto"
-            style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', lineHeight: 1.15 }}
-          >
-            <AnimatedText
-              text={company.tagline}
-              as="span"
-              direction="up"
-            />
-          </h1>
+            {/* Rotating word — AnimatePresence ensures only one word exists at a time */}
+            <span
+              className="relative flex w-full justify-center overflow-hidden text-accent"
+              style={{ fontSize: 'clamp(2.4rem, 6vw, 4.5rem)', lineHeight: 1.2, height: '1.3em' }}
+              aria-live="polite"
+              aria-label={rotatingWords[wordIndex]}
+            >
+              {reducedMotion ? (
+                <span className="absolute inset-0 flex items-center justify-center">
+                  {rotatingWords[0]}
+                </span>
+              ) : (
+                <AnimatePresence mode="popLayout" initial={false}>
+                  <motion.span
+                    key={rotatingWords[wordIndex]}
+                    className="absolute inset-0 flex items-center justify-center"
+                    initial={{ y: '100%', opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: '-100%', opacity: 0 }}
+                    transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    {rotatingWords[wordIndex]}
+                  </motion.span>
+                </AnimatePresence>
+              )}
+            </span>
+          </motion.h1>
 
-          {/* Sub-headline */}
+          {/* Tagline */}
           <motion.p
             className="text-foreground-muted text-lg leading-relaxed max-w-xl mx-auto"
             initial={reducedMotion ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.5, ease: [0, 0, 0.2, 1] }}
+            transition={{ duration: 0.4, delay: 0.45, ease: [0, 0, 0.2, 1] }}
+          >
+            {company.tagline}
+          </motion.p>
+
+          {/* Sub-pitch */}
+          <motion.p
+            className="text-foreground-subtle text-base leading-relaxed max-w-lg mx-auto -mt-4"
+            initial={reducedMotion ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.55, ease: [0, 0, 0.2, 1] }}
           >
             {company.pitch}
           </motion.p>

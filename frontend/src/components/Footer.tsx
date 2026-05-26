@@ -34,7 +34,7 @@ export default function Footer() {
           {/* Col 1 — Brand */}
           <div className="space-y-4">
             <p className="font-mono font-bold text-xl text-foreground">
-              {company.name}
+              alt_<span className="text-accent">ctrl_</span>
             </p>
             <p className="text-foreground-subtle text-sm leading-relaxed max-w-xs">
               {company.tagline}
@@ -99,7 +99,7 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-foreground-subtle text-xs font-sans">
           <p>© {company.year} {company.legalName}. Alla rättigheter förbehållna.</p>
           <p className="font-mono">
-            {company.name}
+            alt_<span className="text-accent">ctrl_</span>
           </p>
         </div>
       </div>

@@ -51,8 +51,7 @@ export default function AboutSection() {
               Varför Alt Ctrl?
             </h2>
             <p className="text-foreground-subtle text-base leading-relaxed max-w-md">
-              Vi kombinerar strategisk förståelse med teknisk leverans — utan mellanhänder,
-              utan subkontraktering. Beslutet ska vara begripligt för ledning innan en rad kod skrivs.
+              Vi kombinerar strategisk förståelse med teknisk leverans, utan mellanhänder, utan subkontraktering. Beslutet ska vara begripligt för ledning innan en rad kod skrivs.
             </p>
           </div>
 

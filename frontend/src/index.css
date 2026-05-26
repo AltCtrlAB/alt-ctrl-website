@@ -80,6 +80,10 @@
   --gradient-cta:  linear-gradient(135deg, #1CB954 0%, #14A84A 100%);
   --glow-accent:   0 0 24px rgba(28, 185, 84, 0.25);
   --glow-accent-lg: 0 0 48px rgba(28, 185, 84, 0.35);
+
+  /* ── Hero background ── */
+  --hero-dot-color:  rgba(255, 255, 255, 0.09);
+  --hero-glow:       radial-gradient(ellipse 90% 60% at 50% 35%, rgba(28, 185, 84, 0.11) 0%, transparent 70%);
 }
 
 /* ============================================================
