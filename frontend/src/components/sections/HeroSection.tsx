@@ -77,7 +77,7 @@ export default function HeroSection() {
             {/* Static line */}
             <span
               className="block"
-              style={{ fontSize: 'clamp(2.4rem, 6vw, 4.5rem)', lineHeight: 1.2 }}
+              style={{ fontSize: 'clamp(1.5rem, 6vw, 4.5rem)', lineHeight: 1.2 }}
             >
               Er partner inom
             </span>
@@ -85,7 +85,7 @@ export default function HeroSection() {
             {/* Rotating word — AnimatePresence ensures only one word exists at a time */}
             <span
               className="relative flex w-full justify-center overflow-hidden text-accent"
-              style={{ fontSize: 'clamp(2.4rem, 6vw, 4.5rem)', lineHeight: 1.2, height: '1.3em' }}
+              style={{ fontSize: 'clamp(1.5rem, 6vw, 4.5rem)', lineHeight: 1.2, height: '1.3em' }}
               aria-live="polite"
               aria-label={rotatingWords[wordIndex]}
             >
