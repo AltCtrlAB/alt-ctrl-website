@@ -35,7 +35,7 @@ function TerminalConfirmation() {
       : null
 
   return (
-    <div style={{ textAlign: 'left', maxWidth: '480px', margin: '0 auto' }}>
+    <div style={{ textAlign: 'left', maxWidth: '520px', margin: '0 auto' }}>
       {visibleLines.map((line, i) => (
         <div
           key={i}
@@ -77,16 +77,73 @@ function TerminalConfirmation() {
   )
 }
 
+function FieldLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <div style={{
+      fontFamily: 'var(--mono)',
+      fontSize: '0.65rem',
+      textTransform: 'uppercase',
+      letterSpacing: '0.08em',
+      color: 'var(--text-muted)',
+      marginBottom: '0.4rem',
+    }}>
+      {children}
+    </div>
+  )
+}
+
+const inputBase: React.CSSProperties = {
+  width: '100%',
+  padding: '0.75rem 1rem',
+  border: '1px solid var(--border)',
+  borderRadius: '4px',
+  background: 'var(--bg)',
+  fontFamily: 'var(--sans)',
+  fontSize: '0.9rem',
+  color: 'var(--text)',
+  outline: 'none',
+  transition: 'border-color 0.2s',
+  boxSizing: 'border-box',
+}
+
+function Field({
+  label,
+  required,
+  children,
+}: {
+  label: string
+  required?: boolean
+  children: React.ReactNode
+}) {
+  return (
+    <div>
+      <FieldLabel>
+        {label}{required && <span style={{ color: 'var(--accent)', marginLeft: '2px' }}>*</span>}
+      </FieldLabel>
+      {children}
+    </div>
+  )
+}
+
 export default function CTASection() {
-  const [email, setEmail] = useState('')
+  const [form, setForm] = useState({ name: '', email: '', company: '', message: '' })
   const [submitted, setSubmitted] = useState(false)
   const [btnHov, setBtnHov] = useState(false)
+  const [focused, setFocused] = useState<string | null>(null)
   const { ref, inView } = useInView()
+
+  const set = (field: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setForm(f => ({ ...f, [field]: e.target.value }))
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (email.trim()) setSubmitted(true)
+    if (form.name.trim() && form.email.trim()) setSubmitted(true)
   }
+
+  const focusStyle = (name: string): React.CSSProperties => ({
+    ...inputBase,
+    borderColor: focused === name ? 'var(--accent)' : 'var(--border)',
+  })
 
   const fadeStyle = (delay: number): React.CSSProperties => ({
     opacity: inView ? 1 : 0,
@@ -111,7 +168,7 @@ export default function CTASection() {
           borderRadius: '4px',
           padding: 'clamp(2.5rem, 5vw, 4rem)',
           background: 'var(--bg-card)',
-          maxWidth: '640px',
+          maxWidth: '680px',
           margin: '0 auto',
         }}
       >
@@ -157,63 +214,110 @@ export default function CTASection() {
           <form
             onSubmit={handleSubmit}
             style={{
-              display: 'flex',
-              gap: '0.75rem',
-              maxWidth: '480px',
+              maxWidth: '520px',
               margin: '0 auto',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
+              textAlign: 'left',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '1.25rem',
+              ...fadeStyle(220),
             }}
           >
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="er@email.se"
-              required
-              style={{
-                flex: '1 1 200px',
-                padding: '0.85rem 1.25rem',
-                border: '1px solid var(--border)',
-                borderRadius: '4px',
-                background: 'var(--bg-card)',
-                fontFamily: 'var(--sans)',
-                fontSize: '0.9rem',
-                color: 'var(--text)',
-                outline: 'none',
-                transition: 'border-color 0.2s',
-              }}
-              onFocus={(e) =>
-                ((e.target as HTMLInputElement).style.borderColor = 'var(--accent)')
-              }
-              onBlur={(e) =>
-                ((e.target as HTMLInputElement).style.borderColor = 'var(--border)')
-              }
-            />
-            <button
-              type="submit"
-              style={{
-                padding: '0.85rem 1.75rem',
-                background: btnHov ? 'var(--accent-dark)' : 'var(--accent)',
-                border: 'none',
-                borderRadius: '4px',
-                fontFamily: 'var(--mono)',
-                fontSize: '0.7rem',
-                textTransform: 'uppercase',
-                letterSpacing: '0.08em',
-                color: 'var(--white)',
-                cursor: 'pointer',
-                transition: 'background 0.2s',
-                flexShrink: 0,
-              }}
-              onMouseEnter={() => setBtnHov(true)}
-              onMouseLeave={() => setBtnHov(false)}
-            >
-              Boka samtal
-            </button>
+            {/* Name + Email row */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }} className="cta-two-col">
+              <Field label="Namn" required>
+                <input
+                  type="text"
+                  value={form.name}
+                  onChange={set('name')}
+                  placeholder="Anna Svensson"
+                  required
+                  style={focusStyle('name')}
+                  onFocus={() => setFocused('name')}
+                  onBlur={() => setFocused(null)}
+                />
+              </Field>
+              <Field label="E-post" required>
+                <input
+                  type="email"
+                  value={form.email}
+                  onChange={set('email')}
+                  placeholder="anna@foretaget.se"
+                  required
+                  style={focusStyle('email')}
+                  onFocus={() => setFocused('email')}
+                  onBlur={() => setFocused(null)}
+                />
+              </Field>
+            </div>
+
+            {/* Company */}
+            <Field label="Företag">
+              <input
+                type="text"
+                value={form.company}
+                onChange={set('company')}
+                placeholder="Företaget AB"
+                style={focusStyle('company')}
+                onFocus={() => setFocused('company')}
+                onBlur={() => setFocused(null)}
+              />
+            </Field>
+
+            {/* Message */}
+            <Field label="Meddelande">
+              <textarea
+                value={form.message}
+                onChange={set('message')}
+                placeholder="Berätta kort om er verksamhet och vad ni vill åstadkomma..."
+                rows={4}
+                style={{
+                  ...focusStyle('message'),
+                  resize: 'vertical',
+                  minHeight: '100px',
+                  lineHeight: 1.6,
+                }}
+                onFocus={() => setFocused('message')}
+                onBlur={() => setFocused(null)}
+              />
+            </Field>
+
+            {/* Submit */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+              <span style={{ fontFamily: 'var(--mono)', fontSize: '0.65rem', color: 'var(--text-muted)', letterSpacing: '0.04em' }}>
+                * obligatoriska fält
+              </span>
+              <button
+                type="submit"
+                style={{
+                  padding: '0.85rem 2rem',
+                  background: btnHov ? 'var(--accent-dark)' : 'var(--accent)',
+                  border: 'none',
+                  borderRadius: '4px',
+                  fontFamily: 'var(--mono)',
+                  fontSize: '0.7rem',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.08em',
+                  color: 'var(--white)',
+                  cursor: 'pointer',
+                  transition: 'background 0.2s',
+                  flexShrink: 0,
+                }}
+                onMouseEnter={() => setBtnHov(true)}
+                onMouseLeave={() => setBtnHov(false)}
+              >
+                Skicka förfrågan
+              </button>
+            </div>
           </form>
         )}
       </div>
+
+      <style>{`
+        @media (max-width: 560px) {
+          .cta-two-col { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </section>
   )
 }
