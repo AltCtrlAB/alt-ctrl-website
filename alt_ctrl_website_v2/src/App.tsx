@@ -1,13 +1,14 @@
 import Navbar from './components/Navbar'
 import HeroSection from './components/HeroSection'
-import ServicesSection from './components/ServicesSection'
-import ProcessSection from './components/ProcessSection'
-import CustomBanner from './components/CustomBanner'
 import LogoTicker from './components/LogoTicker'
+import ProcessSection from './components/ProcessSection'
+import ServicesSection from './components/ServicesSection'
+import AIPhilosophySection from './components/AIPhilosophySection'
 import CasesSection from './components/CasesSection'
+import CustomBanner from './components/CustomBanner'
 import TeamSection from './components/TeamSection'
-import CTASection from './components/CTASection'
 import FAQSection from './components/FAQSection'
+import CTASection from './components/CTASection'
 import Footer from './components/Footer'
 
 export default function App() {
@@ -15,11 +16,12 @@ export default function App() {
     <>
       <Navbar />
       <HeroSection />
-      <ServicesSection />
-      <ProcessSection />
-      <CustomBanner />
       <LogoTicker />
+      <ProcessSection />
+      <ServicesSection />
+      <AIPhilosophySection />
       <CasesSection />
+      <CustomBanner />
       <TeamSection />
       <CTASection />
       <FAQSection />

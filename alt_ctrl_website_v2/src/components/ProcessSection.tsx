@@ -1,60 +1,61 @@
 import { ArrowUpRight } from 'lucide-react'
 import { useState } from 'react'
+import { useInView } from '../hooks/useInView'
 
 interface Phase {
   label: string
   name: string
   duration: string
   description: string
+  isLast?: boolean
 }
 
 const phases: Phase[] = [
   {
-    label: 'Fas 01_',
+    label: 'Steg 01_',
     name: 'Förstudie',
     duration: '2–3 veckor',
     description:
-      'Vi kartlägger var tid och pengar läcker. Identifierar era mest lönsamma förbättringsområden. Ni får en prioriteringslista med estimerad effekt i tid och kronor.',
+      'Vi kartlägger var tid och pengar försvinner. Ni får en prioriteringslista med estimerad effekt i tid och kronor. Ni vet exakt vad varje förbättring är värd innan ni beslutar.',
   },
   {
-    label: 'Fas 02_',
+    label: 'Steg 02_',
     name: 'Implementation',
     duration: '4–16 veckor',
     description:
-      'Vi bygger och implementerar utan att byta system eller leverantör. Verktygen anpassas till hur ni faktiskt jobbar — inte tvärtom. Snabb, mätbar effekt.',
+      'Vi bygger smarta lösningar i er befintliga miljö: automation, AI-verktyg och integrationer anpassade efter era faktiska flöden. Utan att byta system eller leverantör.',
   },
   {
-    label: 'Fas 03_',
-    name: 'Iterera & Förvalta',
+    label: 'Steg 03_',
+    name: 'Mät, justera, bygg vidare',
     duration: 'Löpande',
     description:
-      'Vi mäter, justerar och bygger vidare. Många engagemang övergår i löpande samarbete med tydliga mätpunkter och effektmål. Plattformen blir bättre över tid.',
+      'Vi följer upp med tydliga mätpunkter: tid sparad, kostnad reducerad, processer eliminerade. Löpande samarbete innebär att vi kontinuerligt identifierar nästa förbättring och att er plattform kompounderar i värde.',
+    isLast: true,
   },
 ]
 
 export default function ProcessSection() {
+  const { ref, inView } = useInView()
+
+  const fadeStyle = (delay: number): React.CSSProperties => ({
+    opacity: inView ? 1 : 0,
+    transform: inView ? 'translateY(0)' : 'translateY(20px)',
+    transition: `opacity 0.7s ease ${delay}ms, transform 0.7s ease ${delay}ms`,
+  })
+
   return (
     <section
+      ref={ref as React.RefObject<HTMLElement>}
       id="metod"
       style={{
         padding: 'clamp(3rem, 6vw, 6rem) clamp(1.5rem, 5vw, 3rem)',
         borderBottom: '1px solid var(--border)',
       }}
     >
-      <div
-        style={{
-          fontFamily: 'var(--mono)',
-          fontSize: '0.7rem',
-          textTransform: 'uppercase',
-          letterSpacing: '0.1em',
-          color: 'var(--text-muted)',
-          marginBottom: '2rem',
-        }}
-      >
-        Så här arbetar vi
-      </div>
-      <div className="section-title">
-        Från kartläggning till mätbar effekt. På veckor — inte år.
+      <div className="section-label" style={fadeStyle(0)}>Så här arbetar vi</div>
+      <div className="section-title" style={fadeStyle(80)}>
+        Från kartläggning till mätbar effekt. På veckor, inte år.
       </div>
 
       <div
@@ -92,11 +93,15 @@ function PhaseCard({ phase }: { phase: Phase }) {
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
-        transition: 'background 0.3s',
+        transition: 'background 0.3s, box-shadow 0.3s',
+        boxShadow: hovered ? 'inset 2px 0 0 var(--accent)' : 'none',
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
+      {/* Step connector (non-last cards, desktop only) */}
+      {!phase.isLast && <div className="process-connector-arrow" aria-hidden />}
+
       {/* Arrow circle */}
       <div
         style={{
@@ -114,11 +119,7 @@ function PhaseCard({ phase }: { phase: Phase }) {
           transition: 'all 0.2s',
         }}
       >
-        <ArrowUpRight
-          size={12}
-          color={hovered ? 'var(--white)' : 'var(--text-muted)'}
-          strokeWidth={2}
-        />
+        <ArrowUpRight size={12} color={hovered ? 'var(--white)' : 'var(--text-muted)'} strokeWidth={2} />
       </div>
 
       <div

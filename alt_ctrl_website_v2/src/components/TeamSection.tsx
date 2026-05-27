@@ -1,3 +1,6 @@
+import { useState } from 'react'
+import { useInView } from '../hooks/useInView'
+
 interface TeamMember {
   initials: string
   role: string
@@ -11,36 +14,45 @@ const team: TeamMember[] = [
     role: 'Strategi & Compliance',
     name: 'Magnus Melén',
     description:
-      'Management consulting, hållbarhet, processer och NIS2. Förstår hur beslut fattas i komplexa organisationer och vad som faktiskt driver förändring.',
+      'Leder förstudier och kartläggningar. Bakgrund från managementkonsulting med fokus på hållbarhet, compliance och NIS2. Förstår hur beslut fattas och vad som krävs för att en förändring faktiskt händer.',
   },
   {
     initials: 'FA',
     role: 'AI & Automation',
     name: 'Foad Alhayek',
     description:
-      'AI/ML-expert med djup kunskap i Python och moderna AI-verktyg. Bygger produktionsfärdiga AI-lösningar som faktiskt levererar värde i verksamheten.',
+      'Bygger automatiseringar och AI-lösningar som faktiskt hamnar i produktion. Djup kunskap i Python och moderna AI-verktyg, med fokus på att lösa verkliga problem, inte teknikdemos.',
   },
   {
     initials: 'JP',
-    role: 'Fullstack & Operationer',
+    role: 'Fullstack & Ops',
     name: 'Jonathan Persson',
     description:
-      'Fullstack-utvecklare med starkt ben i både utveckling, processer och operations. Bygger lösningarna och ser till att de faktiskt levererar effekt i driften.',
+      'Bygger lösningarna och driver leveransen. Fullstack-utvecklare med bakgrund i operations och sälj. Ansvarar för att det vi lovar i förstudien faktiskt levereras, i tid och med mätbar effekt.',
   },
 ]
 
 export default function TeamSection() {
+  const { ref, inView } = useInView()
+
+  const fadeStyle = (delay: number): React.CSSProperties => ({
+    opacity: inView ? 1 : 0,
+    transform: inView ? 'translateY(0)' : 'translateY(20px)',
+    transition: `opacity 0.7s ease ${delay}ms, transform 0.7s ease ${delay}ms`,
+  })
+
   return (
     <section
+      ref={ref as React.RefObject<HTMLElement>}
       id="teamet"
       style={{
         padding: 'clamp(3rem, 6vw, 6rem) clamp(1.5rem, 5vw, 3rem)',
         borderBottom: '1px solid var(--border)',
       }}
     >
-      <div className="section-label">Teamet</div>
-      <div className="section-title">
-        Business, strategi och teknik — utan mellanhänder.
+      <div className="section-label" style={fadeStyle(0)}>Teamet</div>
+      <div className="section-title" style={fadeStyle(80)}>
+        Business, strategi och teknik, utan mellanhänder.
       </div>
 
       <div
@@ -68,39 +80,55 @@ export default function TeamSection() {
 }
 
 function TeamCard({ member }: { member: TeamMember }) {
+  const [hovered, setHovered] = useState(false)
+
   return (
     <div
       style={{
-        background: 'var(--bg)',
+        background: hovered ? 'var(--bg-light)' : 'var(--bg)',
         padding: '2.5rem',
-        transition: 'background 0.3s',
+        transition: 'background 0.3s, box-shadow 0.3s',
+        boxShadow: hovered ? 'inset 2px 0 0 var(--accent)' : 'none',
       }}
-      onMouseEnter={(e) =>
-        ((e.currentTarget as HTMLDivElement).style.background =
-          'var(--bg-light)')
-      }
-      onMouseLeave={(e) =>
-        ((e.currentTarget as HTMLDivElement).style.background = 'var(--bg)')
-      }
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
-      {/* Avatar */}
-      <div
-        style={{
-          width: '48px',
-          height: '48px',
-          background: 'var(--accent)',
-          borderRadius: '50%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontFamily: 'var(--mono)',
-          fontSize: '0.75rem',
-          fontWeight: 700,
-          color: 'var(--white)',
-          marginBottom: '1.5rem',
-        }}
-      >
-        {member.initials}
+      {/* Avatar with ring */}
+      <div style={{ position: 'relative', width: '48px', height: '48px', marginBottom: '1.5rem' }}>
+        <div
+          style={{
+            width: '48px',
+            height: '48px',
+            background: hovered ? 'var(--accent-dark)' : 'var(--accent)',
+            borderRadius: '50%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontFamily: 'var(--mono)',
+            fontSize: '0.75rem',
+            fontWeight: 700,
+            color: 'var(--white)',
+            transition: 'background 0.3s',
+            position: 'relative',
+            zIndex: 1,
+          }}
+        >
+          {member.initials}
+        </div>
+        {hovered && (
+          <div
+            key={member.initials + '-ring'}
+            aria-hidden
+            style={{
+              position: 'absolute',
+              inset: '-6px',
+              borderRadius: '50%',
+              border: '1px solid var(--accent)',
+              animation: 'avatarRing 0.6s ease-out forwards',
+              pointerEvents: 'none',
+            }}
+          />
+        )}
       </div>
 
       {/* Role */}

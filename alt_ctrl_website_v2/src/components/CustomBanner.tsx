@@ -47,7 +47,7 @@ export default function CustomBanner() {
               maxWidth: '550px',
             }}
           >
-            Behöver ni en skräddarsydd lösning?
+            Vet ni inte var ni ska börja? Det är precis där vi är starka.
           </h3>
           <p
             style={{
@@ -59,7 +59,7 @@ export default function CustomBanner() {
             }}
           >
             Vi börjar alltid i verksamheten. Boka ett 30-minuterssamtal så
-            identifierar vi era mest lönsamma förbättringsområden — med
+            identifierar vi era mest lönsamma förbättringsområden, med
             estimerad effekt i tid och kronor.
           </p>
         </div>

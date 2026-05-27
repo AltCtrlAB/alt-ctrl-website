@@ -1,5 +1,6 @@
 import { ArrowUpRight } from 'lucide-react'
 import { useState } from 'react'
+import { useInView } from '../hooks/useInView'
 
 interface Service {
   num: string
@@ -20,7 +21,7 @@ const services: Service[] = [
     ),
     title: 'Processoptimering',
     description:
-      'Kartläggning av manuella flöden och systematiska läckor. Vi identifierar var tid och pengar försvinner — och prioriterar insatser efter effekt.',
+      'Kartläggning av manuella flöden och systematiska läckor. Vi identifierar var tid och pengar försvinner, och prioriterar insatser efter effekt.',
   },
   {
     num: '02_',
@@ -58,7 +59,7 @@ const services: Service[] = [
     ),
     title: 'Regulatorisk Compliance',
     description:
-      'Plattformar för automatiserad rapportering till myndigheter. Korrekt, spårbar och med inbyggd regelverksuppdatering.',
+      'Plattformar för automatiserad rapportering till myndigheter. Vi håller plattformen uppdaterad när regelverket ändras, utan att ni behöver göra något.',
   },
   {
     num: '05_',
@@ -69,7 +70,7 @@ const services: Service[] = [
     ),
     title: 'Dashboards & BI',
     description:
-      'Realtidsövervakning av datakvalitet, deadlines och avvikelser. Från reaktivt arbete till proaktiv kontroll med tidiga varningar.',
+      'Ni ser avvikelser innan de eskalerar, med dashboard anpassat till era faktiska mätpunkter.',
   },
   {
     num: '06_',
@@ -81,21 +82,30 @@ const services: Service[] = [
     ),
     title: 'Förvaltning & Drift',
     description:
-      'Löpande samarbete med tydliga mätpunkter och effektmål. Vi mäter, justerar och bygger vidare. Plattformen blir bättre över tid.',
+      'Ni slipper förvalta lösningen själva. Vi äger ansvaret och bygger vidare efter era faktiska resultat.',
   },
 ]
 
 export default function ServicesSection() {
+  const { ref, inView } = useInView()
+
+  const fadeStyle = (delay: number): React.CSSProperties => ({
+    opacity: inView ? 1 : 0,
+    transform: inView ? 'translateY(0)' : 'translateY(20px)',
+    transition: `opacity 0.7s ease ${delay}ms, transform 0.7s ease ${delay}ms`,
+  })
+
   return (
     <section
+      ref={ref as React.RefObject<HTMLElement>}
       id="tjanster"
       style={{
         padding: 'clamp(3rem, 6vw, 6rem) clamp(1.5rem, 5vw, 3rem)',
         borderBottom: '1px solid var(--border)',
       }}
     >
-      <div className="section-label">Tjänster, allt på en plats</div>
-      <div className="section-title">Business och teknik under samma tak.</div>
+      <div className="section-label" style={fadeStyle(0)}>Tjänster, allt på en plats</div>
+      <div className="section-title" style={fadeStyle(80)}>Vi hittar rätt, och levererar.</div>
 
       <div
         style={{
@@ -131,12 +141,13 @@ function ServiceCard({ service }: { service: Service }) {
         background: hovered ? 'var(--bg-light)' : 'var(--bg)',
         padding: '2.5rem',
         position: 'relative',
-        transition: 'background 0.3s',
+        transition: 'background 0.3s, box-shadow 0.3s',
+        boxShadow: hovered ? 'inset 2px 0 0 var(--accent)' : 'none',
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Arrow circle — top right */}
+      {/* Arrow circle */}
       <div
         style={{
           position: 'absolute',
@@ -153,11 +164,7 @@ function ServiceCard({ service }: { service: Service }) {
           transition: 'all 0.2s',
         }}
       >
-        <ArrowUpRight
-          size={12}
-          color={hovered ? 'var(--white)' : 'var(--text-muted)'}
-          strokeWidth={2}
-        />
+        <ArrowUpRight size={12} color={hovered ? 'var(--white)' : 'var(--text-muted)'} strokeWidth={2} />
       </div>
 
       {/* Number */}
@@ -193,10 +200,10 @@ function ServiceCard({ service }: { service: Service }) {
       <h3
         style={{
           fontFamily: 'var(--sans)',
-          fontSize: '0.75rem',
+          fontSize: '0.875rem',
           fontWeight: 600,
           textTransform: 'uppercase',
-          letterSpacing: '0.08em',
+          letterSpacing: '0.06em',
           marginBottom: '1rem',
           color: 'var(--text)',
         }}

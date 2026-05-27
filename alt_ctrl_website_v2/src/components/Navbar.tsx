@@ -1,5 +1,69 @@
 import { useState, useEffect } from 'react'
 
+function LogoMark() {
+  const [active, setActive] = useState(false)
+  const [hovering, setHovering] = useState(false)
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.altKey && e.ctrlKey) {
+        setActive(true)
+        setTimeout(() => setActive(false), 1200)
+      }
+    }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [])
+
+  return (
+    <a
+      href="#"
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+      style={{
+        fontFamily: 'var(--mono)',
+        fontSize: '1.15rem',
+        fontWeight: 700,
+        letterSpacing: '-0.02em',
+        textDecoration: 'none',
+        color: 'var(--text)',
+        display: 'inline-flex',
+        gap: 0,
+      }}
+      aria-label="alt_ctrl_ - hem"
+    >
+      <span
+        style={{
+          opacity: hovering ? 0.5 : 1,
+          transition: 'opacity 0.15s',
+          transitionDelay: hovering ? '0ms' : '80ms',
+        }}
+      >
+        alt_
+      </span>
+      <span
+        style={{
+          color: active ? 'var(--text)' : 'var(--accent)',
+          transition: 'color 0.2s, font-style 0.1s',
+          fontStyle: active ? 'italic' : 'normal',
+        }}
+      >
+        ctrl
+      </span>
+      <span
+        style={{
+          color: 'var(--accent)',
+          opacity: hovering ? 0.5 : 1,
+          transition: 'opacity 0.15s',
+          transitionDelay: hovering ? '160ms' : '40ms',
+        }}
+      >
+        _
+      </span>
+    </a>
+  )
+}
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -13,8 +77,10 @@ export default function Navbar() {
   const navLinks = [
     { href: '#tjanster', label: 'Tjänster' },
     { href: '#metod', label: 'Metod' },
+    { href: '#ai', label: 'Vår syn' },
     { href: '#case', label: 'Case' },
     { href: '#teamet', label: 'Teamet' },
+    { href: '#faq', label: 'FAQ' },
   ]
 
   return (
@@ -38,28 +104,11 @@ export default function Navbar() {
         transition: 'background 0.3s',
       }}
     >
-      {/* Logo */}
-      <a
-        href="#"
-        style={{
-          fontFamily: 'var(--mono)',
-          fontSize: '1.15rem',
-          fontWeight: 700,
-          letterSpacing: '-0.02em',
-          textDecoration: 'none',
-          color: 'var(--text)',
-        }}
-      >
-        alt_<span style={{ color: 'var(--accent)' }}>ctrl</span>_
-      </a>
+      <LogoMark />
 
       {/* Desktop nav */}
       <div
-        style={{
-          display: 'flex',
-          gap: '2.5rem',
-          alignItems: 'center',
-        }}
+        style={{ display: 'flex', gap: '2.5rem', alignItems: 'center' }}
         className="hidden-mobile"
       >
         {navLinks.map((link) => (
@@ -79,8 +128,7 @@ export default function Navbar() {
               ((e.target as HTMLAnchorElement).style.color = 'var(--accent)')
             }
             onMouseLeave={(e) =>
-              ((e.target as HTMLAnchorElement).style.color =
-                'var(--text-secondary)')
+              ((e.target as HTMLAnchorElement).style.color = 'var(--text-secondary)')
             }
           >
             {link.label}
@@ -101,8 +149,7 @@ export default function Navbar() {
             transition: 'background 0.2s',
           }}
           onMouseEnter={(e) =>
-            ((e.target as HTMLAnchorElement).style.background =
-              'var(--accent-dark)')
+            ((e.target as HTMLAnchorElement).style.background = 'var(--accent-dark)')
           }
           onMouseLeave={(e) =>
             ((e.target as HTMLAnchorElement).style.background = 'var(--accent)')
@@ -126,14 +173,7 @@ export default function Navbar() {
         className="show-mobile"
         aria-label="Menu"
       >
-        <svg
-          width="22"
-          height="22"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-        >
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           {menuOpen ? (
             <path d="M18 6L6 18M6 6l12 12" />
           ) : (
@@ -205,10 +245,10 @@ export default function Navbar() {
       <style>{`
         @media (max-width: 768px) {
           .hidden-mobile { display: none !important; }
-          .show-mobile { display: flex !important; }
+          .show-mobile   { display: flex !important; }
         }
         @media (min-width: 769px) {
-          .show-mobile { display: none !important; }
+          .show-mobile   { display: none !important; }
           .hidden-mobile { display: flex !important; }
         }
       `}</style>

@@ -11,31 +11,44 @@ const faqItems: FAQItem[] = [
     num: '01_',
     question: 'Vad ingår i förstudien?',
     answer:
-      'Vi kartlägger era processer, identifierar manuella flöden och systematiska läckor, och prioriterar förbättringsområden efter estimerad effekt i tid och kronor. Förstudien tar 2–3 veckor.',
+      'Vi kartlägger era processer, identifierar manuella flöden och systematiska läckor, och prioriterar förbättringsområden efter estimerad effekt i tid och kronor. Ni får en tydlig prioriteringslista med uppskattad besparing per åtgärd - så ni kan fatta välgrundade beslut om vad som är värt att ta tag i, och i vilken ordning. Förstudien tar 2-3 veckor och kräver minimal tid från er sida.',
   },
   {
     num: '02_',
     question: 'Behöver vi byta ut våra befintliga system?',
     answer:
-      'Nej. Vi bygger ovanpå det ni redan har. Inga nya system, ingen teknisk skuld, inga långa integrationer. Vi gör det ni redan har smartare.',
+      'Nej. Vi bygger ovanpå det ni redan har. Inga nya system, ingen teknisk skuld, inga långa integrationer. De flesta bolag har redan tillräckligt bra verktyg - problemet är att de inte pratar med varandra och att det manuella arbetet hamnar mellan dem. Det är precis där vi kommer in.',
   },
   {
     num: '03_',
     question: 'Hur snabbt ser vi resultat?',
     answer:
-      'Mätbar skillnad inom veckor, inte kvartal. Vi prioriterar insatser där insatsen är liten och effekten är stor, så att ni ser resultat tidigt i processen.',
+      'Mätbar skillnad inom veckor, inte kvartal. Vi prioriterar insatser där insatsen är liten och effekten är stor, så att ni ser resultat tidigt i processen. De flesta kunder har sin första automationsvinst live inom fyra till sex veckor från projektstart. Sedan bygger vi vidare därifrån.',
   },
   {
     num: '04_',
     question: 'Vilken typ av bolag jobbar ni med?',
     answer:
-      'Vi har jobbat med allt från Volvo och Stena till bolag i er storlek. Samma metodik — anpassad till er kontext. Vi är starkast inom industri, tillverkning och regulatoriskt tunga branscher.',
+      'Vi jobbar med svenska bolag i spannet 20-300 anställda, framför allt inom industri, tillverkning och regulatoriskt tunga branscher. Vi har också erfarenhet från större bolag som Volvo och Stena. Metodiken är densamma oavsett storlek - det som skiljer sig är vad ni prioriterar och hur snabbt vi kan röra oss.',
+  },
+  {
+    num: '05_',
+    question: 'Vad kostar det?',
+    answer:
+      'Förstudien prissätts som ett fast uppdrag och beror på er komplexitet och antal processer vi tittar på. Implementation prissätts per leverans, inte per timme - ni vet vad ni betalar innan vi sätter igång. Vi undviker löpande räkning för att hålla incitamenten rätt. Hör av er så ger vi en indikation efter ett kort samtal.',
+  },
+  {
+    num: '06_',
+    question: 'Använder ni AI i alla lösningar?',
+    answer:
+      'Inte nödvändigtvis. Vi väljer verktyg efter problem, inte tvärtom. Ibland är en enkel integration eller ett automatiserat rapportflöde det rätta. AI används när det faktiskt ger mätbar nytta - inte för att det låter bra i en presentation. Det händer att vi rekommenderar något som inte involverar AI alls, och det är vi stolta över.',
   },
 ]
 
 export default function FAQSection() {
   return (
     <section
+      id="faq"
       style={{
         padding: 'clamp(3rem, 6vw, 6rem) clamp(1.5rem, 5vw, 3rem)',
         borderBottom: '1px solid var(--border)',
@@ -126,7 +139,7 @@ function FAQItemComponent({ item }: { item: FAQItem }) {
       {/* Answer */}
       <div
         style={{
-          maxHeight: open ? '240px' : '0',
+          maxHeight: open ? '400px' : '0',
           overflow: 'hidden',
           transition: 'max-height 0.35s ease, padding 0.35s ease',
           paddingTop: open ? '1rem' : '0',
