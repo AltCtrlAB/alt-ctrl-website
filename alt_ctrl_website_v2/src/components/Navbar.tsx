@@ -1,4 +1,40 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+
+function RobotIcon({ progress }: { progress: number }) {
+  // Legs alternate based on scroll position for a walking effect
+  const step = Math.floor(progress * 40) % 2 === 0
+  const color = 'var(--accent)'
+
+  return (
+    <svg
+      width="20"
+      height="22"
+      viewBox="0 0 20 22"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ display: 'block' }}
+    >
+      {/* Antenna */}
+      <line x1="10" y1="0" x2="10" y2="3" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="10" cy="1" r="1" fill={color} />
+      {/* Head */}
+      <rect x="5" y="3" width="10" height="7" rx="2" stroke={color} strokeWidth="1.5" fill="none" />
+      {/* Eyes */}
+      <circle cx="8" cy="6.5" r="1" fill={color} />
+      <circle cx="12" cy="6.5" r="1" fill={color} />
+      {/* Body */}
+      <rect x="4" y="11" width="12" height="7" rx="1.5" stroke={color} strokeWidth="1.5" fill="none" />
+      {/* Chest dot */}
+      <circle cx="10" cy="14.5" r="1" fill={color} />
+      {/* Arms */}
+      <line x1="4" y1="13" x2="1" y2={step ? "15" : "16"} stroke={color} strokeWidth="1.5" strokeLinecap="round" />
+      <line x1="16" y1="13" x2="19" y2={step ? "16" : "15"} stroke={color} strokeWidth="1.5" strokeLinecap="round" />
+      {/* Legs */}
+      <line x1="7.5" y1="18" x2={step ? "6" : "7.5"} y2="22" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
+      <line x1="12.5" y1="18" x2={step ? "12.5" : "14"} y2="22" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  )
+}
 
 function LogoMark() {
   const [active, setActive] = useState(false)
@@ -67,21 +103,49 @@ function LogoMark() {
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  const [progress, setProgress] = useState(0)
+  const [flagPositions, setFlagPositions] = useState<{ id: string; label: string; pct: number }[]>([])
 
   const navLinks = [
-    { href: '#tjanster', label: 'Tjänster' },
     { href: '#metod', label: 'Metod' },
+    { href: '#tjanster', label: 'Tjänster' },
     { href: '#ai', label: 'Vår syn' },
     { href: '#case', label: 'Case' },
     { href: '#teamet', label: 'Teamet' },
     { href: '#faq', label: 'FAQ' },
   ]
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 20)
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight
+      setProgress(docHeight > 0 ? Math.min(window.scrollY / docHeight, 1) : 0)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  // Measure section positions after paint
+  useEffect(() => {
+    const measure = () => {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight
+      if (docHeight <= 0) return
+      const positions = navLinks
+        .map(({ href, label }) => {
+          const id = href.replace('#', '')
+          const el = document.getElementById(id)
+          if (!el) return null
+          return { id, label, pct: Math.min(el.offsetTop / docHeight, 1) }
+        })
+        .filter(Boolean) as { id: string; label: string; pct: number }[]
+      setFlagPositions(positions)
+    }
+    // Wait for layout
+    const t = setTimeout(measure, 300)
+    window.addEventListener('resize', measure)
+    return () => { clearTimeout(t); window.removeEventListener('resize', measure) }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <nav
@@ -105,6 +169,80 @@ export default function Navbar() {
       }}
     >
       <LogoMark />
+
+      {/* Scroll progress robot track */}
+      <div
+        className="hidden-mobile"
+        style={{
+          flex: 1,
+          margin: '0 2.5rem',
+          position: 'relative',
+          height: '20px',
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
+        {/* Floor line */}
+        <div style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          bottom: 0,
+          height: '1px',
+          background: 'var(--border)',
+        }} />
+        {/* Section flags */}
+        {flagPositions.map((flag) => (
+          <a
+            key={flag.id}
+            href={`#${flag.id}`}
+            title={flag.label}
+            style={{
+              position: 'absolute',
+              left: `${flag.pct * 100}%`,
+              bottom: '1px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              textDecoration: 'none',
+              transform: 'translateX(-50%)',
+            }}
+          >
+            {/* Flag label */}
+            <span style={{
+              fontFamily: 'var(--mono)',
+              fontSize: '0.45rem',
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+              color: progress >= flag.pct ? 'var(--accent)' : 'var(--text-muted)',
+              whiteSpace: 'nowrap',
+              marginBottom: '1px',
+              transition: 'color 0.3s',
+            }}>
+              {flag.label}
+            </span>
+            {/* Flag pole */}
+            <span style={{
+              width: '1px',
+              height: '5px',
+              background: progress >= flag.pct ? 'var(--accent)' : 'var(--border)',
+              display: 'block',
+              transition: 'background 0.3s',
+            }} />
+          </a>
+        ))}
+        {/* Robot */}
+        <div style={{
+          position: 'absolute',
+          left: `calc(${progress * 100}% - 10px)`,
+          bottom: '1px',
+          transition: 'left 0.1s linear',
+          lineHeight: 1,
+          userSelect: 'none',
+        }}>
+          <RobotIcon progress={progress} />
+        </div>
+      </div>
 
       {/* Desktop nav */}
       <div
