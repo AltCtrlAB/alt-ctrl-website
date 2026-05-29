@@ -1,4 +1,4 @@
-# Alt Ctrl — Website
+# Alt Ctrl - Website
 
 Landing page for Alt Ctrl, built with Next.js 16 + React 19 + TypeScript + Tailwind CSS v4.
 
@@ -20,7 +20,7 @@ Landing page for Alt Ctrl, built with Next.js 16 + React 19 + TypeScript + Tailw
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/) 20+
-- [Bun](https://bun.sh/) — `curl -fsSL https://bun.sh/install | bash`
+- [Bun](https://bun.sh/) - `curl -fsSL https://bun.sh/install | bash`
 
 ---
 
