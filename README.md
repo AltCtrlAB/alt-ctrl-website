@@ -40,4 +40,4 @@ The site runs at **http://localhost:3000**.
 
 ## License
 
-All rights reserved © Alt Ctrl AB
+All rights reserved © alltunderkontroll AB
