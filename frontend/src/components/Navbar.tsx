@@ -1,145 +1,251 @@
-import { useState } from 'react'
-import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
-import { Menu, X } from 'lucide-react'
-import {
-  Sheet,
-  SheetContent,
-  SheetTitle,
-  SheetTrigger,
-} from '@/components/ui/sheet'
-import { cn } from '@/lib/utils'
-import { company } from '@/lib/company'
-import GlowButton from '@/components/GlowButton'
-import { useScrolled } from '@/hooks/useScrolled'
+"use client"
 
-function scrollTo(href: string) {
-  const id = href.replace('#', '')
-  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+import { useState, useEffect } from 'react'
+
+const SECTIONS = [
+  { id: 'metod',    label: 'Metod',    visualPct: 0 },
+  { id: 'tjanster', label: 'Tjänster', visualPct: 0.2 },
+  { id: 'ai',       label: 'Vår syn',  visualPct: 0.4 },
+  { id: 'case',     label: 'Case',     visualPct: 0.6 },
+  { id: 'teamet',   label: 'Teamet',   visualPct: 0.8 },
+  { id: 'faq',      label: 'FAQ',      visualPct: 1.0 },
+]
+
+
+function RobotIcon({ step }: { step: boolean }) {
+  const color = 'var(--accent)'
+  return (
+    <svg width="13" height="14" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: 'block' }}>
+      <line x1="10" y1="0" x2="10" y2="3" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="10" cy="1" r="1" fill={color} />
+      <rect x="5" y="3" width="10" height="7" rx="2" stroke={color} strokeWidth="1.5" fill="none" />
+      <circle cx="8" cy="6.5" r="1" fill={color} />
+      <circle cx="12" cy="6.5" r="1" fill={color} />
+      <rect x="4" y="11" width="12" height="7" rx="1.5" stroke={color} strokeWidth="1.5" fill="none" />
+      <circle cx="10" cy="14.5" r="1" fill={color} />
+      <line x1="4" y1="13" x2="1" y2={step ? "15" : "16"} stroke={color} strokeWidth="1.5" strokeLinecap="round" />
+      <line x1="16" y1="13" x2="19" y2={step ? "16" : "15"} stroke={color} strokeWidth="1.5" strokeLinecap="round" />
+      <line x1="7.5" y1="18" x2={step ? "6" : "7.5"} y2="22" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
+      <line x1="12.5" y1="18" x2={step ? "12.5" : "14"} y2="22" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+function LogoMark() {
+  const [active, setActive] = useState(false)
+  const [hovering, setHovering] = useState(false)
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.altKey && e.ctrlKey) {
+        setActive(true)
+        setTimeout(() => setActive(false), 1200)
+      }
+    }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [])
+
+  return (
+    <a
+      href="#"
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+      style={{ fontFamily: 'var(--mono)', fontSize: '1.15rem', fontWeight: 700, letterSpacing: '-0.02em', textDecoration: 'none', color: 'var(--text)', display: 'inline-flex', gap: 0 }}
+      aria-label="alt_ctrl_ - hem"
+    >
+      <span style={{ opacity: hovering ? 0.5 : 1, transition: 'opacity 0.15s', transitionDelay: hovering ? '0ms' : '80ms' }}>alt_</span>
+      <span style={{ color: active ? 'var(--text)' : 'var(--accent)', transition: 'color 0.2s, font-style 0.1s', fontStyle: active ? 'italic' : 'normal' }}>ctrl</span>
+      <span style={{ color: 'var(--accent)', opacity: hovering ? 0.5 : 1, transition: 'opacity 0.15s', transitionDelay: hovering ? '160ms' : '40ms' }}>_</span>
+    </a>
+  )
 }
 
 export default function Navbar() {
-  const scrolled = useScrolled()
-  const [open, setOpen] = useState(false)
-  const reducedMotion = useReducedMotion()
+  const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [progress, setProgress] = useState(0)
+  const [actualPcts, setActualPcts] = useState<Record<string, number>>({})
+  const [step, setStep] = useState(false)
 
-  const navLinks = company.nav
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 20)
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight
+      setProgress(docHeight > 0 ? Math.min(window.scrollY / docHeight, 1) : 0)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  useEffect(() => {
+    const measure = () => {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight
+      if (docHeight <= 0) return
+      const map: Record<string, number> = {}
+      ;SECTIONS.map(s => s.id).forEach((id) => {
+        const el = document.getElementById(id)
+        if (el) map[id] = Math.min(el.offsetTop / docHeight, 1)
+      })
+      setActualPcts(map)
+    }
+    const t = setTimeout(measure, 400)
+    window.addEventListener('resize', measure)
+    return () => { clearTimeout(t); window.removeEventListener('resize', measure) }
+  }, [])
+
+  const visualProgress = (() => {
+    const known = SECTIONS.filter(s => actualPcts[s.id] !== undefined)
+    if (known.length < 2) return progress
+
+    if (progress <= actualPcts[known[0].id])
+      return (progress / actualPcts[known[0].id]) * known[0].visualPct
+
+    const last = known[known.length - 1]
+    if (progress >= actualPcts[last.id]) {
+      const remaining = 1 - actualPcts[last.id]
+      if (remaining <= 0) return last.visualPct
+      return last.visualPct + ((progress - actualPcts[last.id]) / remaining) * (1 - last.visualPct)
+    }
+
+    for (let i = 0; i < known.length - 1; i++) {
+      const a = known[i], b = known[i + 1]
+      const aAct = actualPcts[a.id], bAct = actualPcts[b.id]
+      if (progress >= aAct && progress < bAct) {
+        const t = (progress - aAct) / (bAct - aAct)
+        return a.visualPct + t * (b.visualPct - a.visualPct)
+      }
+    }
+    return progress
+  })()
+
+  useEffect(() => {
+    setStep(Math.floor(visualProgress * 80) % 2 === 0)
+  }, [visualProgress])
+
+  const navLinks = SECTIONS.map(s => ({ href: `#${s.id}`, label: s.label }))
 
   return (
-    <motion.header
-      className={cn(
-        'fixed top-0 inset-x-0 z-[var(--z-sticky)] transition-all duration-300',
-        scrolled
-          ? 'bg-background/80 backdrop-blur-md border-b border-border'
-          : 'bg-transparent',
-      )}
-      initial={reducedMotion ? false : { y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.4, ease: [0, 0, 0.2, 1] }}
+    <nav
+      style={{
+        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: '1.25rem 3rem',
+        background: scrolled ? 'rgba(230, 226, 220, 0.96)' : 'rgba(230, 226, 220, 0.92)',
+        backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
+        borderBottom: '1px solid var(--border-light)',
+        transition: 'background 0.3s',
+      }}
     >
-      <nav
-        className="container-site flex items-center justify-between h-16"
-        aria-label="Main navigation"
+      <LogoMark />
+
+      {/* Robot track */}
+      <div
+        className="hidden-mobile"
+        style={{ flex: 1, margin: '0 2.5rem', position: 'relative', height: '34px' }}
       >
-        {/* Logo */}
-        <a
-          href="#"
-          onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
-          className="font-mono font-bold text-foreground text-lg tracking-tight hover:text-accent transition-colors duration-150 cursor-pointer"
-          aria-label="alt_ctrl_, gå till toppen"
-        >
-          alt_<span className="text-accent">ctrl_</span>
-        </a>
+        <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '1px', background: 'var(--border)' }} />
 
-        {/* Desktop nav */}
-        <ul className="hidden md:flex items-center gap-1" role="list">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <button
-                onClick={() => scrollTo(link.href)}
-                className="group px-3 py-2 text-sm font-sans text-foreground-muted hover:text-foreground transition-colors duration-150 cursor-pointer rounded-md hover:bg-surface-raised focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-2"
-              >
-                <span className="relative">
-                  {link.label}
-                  <span
-                    className="absolute bottom-[-2px] left-0 h-[2px] w-0 bg-accent rounded-full transition-all duration-200 group-hover:w-full"
-                    aria-hidden="true"
-                  />
-                </span>
-              </button>
-            </li>
-          ))}
-        </ul>
+        {SECTIONS.map((s) => {
+          const passed = progress >= (actualPcts[s.id] ?? 1)
+          return (
+            <a
+              key={s.id}
+              href={`#${s.id}`}
+              style={{
+                position: 'absolute',
+                left: `${s.visualPct * 100}%`,
+                bottom: '4px',
+                display: 'flex', flexDirection: 'column', alignItems: 'center',
+                textDecoration: 'none',
+                transform: 'translateX(-50%)',
+              }}
+            >
+              <span style={{
+                fontFamily: 'var(--mono)', fontSize: '0.7rem', fontWeight: 600,
+                textTransform: 'uppercase', letterSpacing: '0.06em',
+                color: passed ? 'var(--accent)' : 'var(--text-secondary)',
+                whiteSpace: 'nowrap', marginBottom: '2px',
+                transition: 'color 0.3s',
+              }}>
+                {s.label}
+              </span>
+              <span style={{
+                width: '1px', height: '7px', display: 'block',
+                background: passed ? 'var(--accent)' : 'var(--text-muted)',
+                transition: 'background 0.3s',
+              }} />
+            </a>
+          )
+        })}
 
-        {/* Desktop CTA */}
-        <div className="hidden md:block">
-          <GlowButton href={company.cta.primary.href} size="sm">
-            Boka möte
-          </GlowButton>
+        <div style={{
+          position: 'absolute',
+          left: `calc(${visualProgress * 100}% - 6px)`,
+          bottom: '1px',
+          transition: 'left 0.1s linear, opacity 0.4s ease',
+          opacity: progress >= (actualPcts['metod'] ?? 1) ? 1 : 0,
+          lineHeight: 1, userSelect: 'none',
+        }}>
+          <RobotIcon step={step} />
         </div>
+      </div>
 
-        {/* Mobile hamburger */}
-        <Sheet open={open} onOpenChange={setOpen}>
-          <SheetTrigger
-            className="md:hidden p-2 rounded-md text-foreground-muted hover:text-foreground hover:bg-surface cursor-pointer focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-2"
-            aria-label={open ? 'Stäng meny' : 'Öppna meny'}
-          >
-            <AnimatePresence mode="wait" initial={false}>
-              {open ? (
-                <motion.span
-                  key="close"
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.15 }}
-                >
-                  <X size={20} aria-hidden="true" />
-                </motion.span>
-              ) : (
-                <motion.span
-                  key="open"
-                  initial={{ rotate: 90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: -90, opacity: 0 }}
-                  transition={{ duration: 0.15 }}
-                >
-                  <Menu size={20} aria-hidden="true" />
-                </motion.span>
-              )}
-            </AnimatePresence>
-          </SheetTrigger>
+      {/* Kontakt CTA */}
+      <a
+        href="#kontakt"
+        className="hidden-mobile"
+        style={{
+          fontFamily: 'var(--mono)', fontSize: '0.75rem', textTransform: 'uppercase',
+          letterSpacing: '0.08em', textDecoration: 'none', background: 'var(--accent)',
+          color: 'var(--white)', padding: '0.5rem 1.25rem', borderRadius: '4px',
+          transition: 'background 0.2s', flexShrink: 0,
+        }}
+        onMouseEnter={(e) => ((e.target as HTMLAnchorElement).style.background = 'var(--accent-dark)')}
+        onMouseLeave={(e) => ((e.target as HTMLAnchorElement).style.background = 'var(--accent)')}
+      >
+        Kontakt
+      </a>
 
-          <SheetContent
-            side="right"
-            className="bg-surface border-border w-72"
-          >
-            <SheetTitle className="font-mono text-foreground mb-6">
-              alt_<span className="text-accent">ctrl_</span>
-            </SheetTitle>
-            <nav aria-label="Mobile navigation">
-              <ul className="flex flex-col gap-1" role="list">
-                {navLinks.map((link) => (
-                  <li key={link.href}>
-                    <button
-                      onClick={() => { scrollTo(link.href); setOpen(false) }}
-                      className="w-full text-left px-4 py-3 text-base font-sans text-foreground-muted hover:text-foreground hover:bg-surface-raised rounded-md transition-colors duration-150 cursor-pointer min-h-[44px]"
-                    >
-                      {link.label}
-                    </button>
-                  </li>
-                ))}
-                <li className="mt-4 px-4">
-                  <GlowButton
-                    href={company.cta.primary.href}
-                    className="w-full justify-center"
-                  >
-                    {company.cta.primary.label}
-                  </GlowButton>
-                </li>
-              </ul>
-            </nav>
-          </SheetContent>
-        </Sheet>
-      </nav>
-    </motion.header>
+      {/* Mobile hamburger */}
+      <button
+        onClick={() => setMenuOpen(!menuOpen)}
+        style={{ display: 'none', background: 'none', border: 'none', cursor: 'pointer', padding: '4px', color: 'var(--text)' }}
+        className="show-mobile"
+        aria-label="Menu"
+      >
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          {menuOpen ? <path d="M18 6L6 18M6 6l12 12" /> : <><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" /></>}
+        </svg>
+      </button>
+
+      {/* Mobile menu */}
+      {menuOpen && (
+        <div
+          style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: 'rgba(230, 226, 220, 0.98)', backdropFilter: 'blur(12px)', borderBottom: '1px solid var(--border)', padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}
+          className="show-mobile"
+        >
+          {navLinks.map((link) => (
+            <a key={link.href} href={link.href} onClick={() => setMenuOpen(false)}
+              style={{ fontFamily: 'var(--mono)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.08em', textDecoration: 'none', color: 'var(--text-secondary)' }}
+            >{link.label}</a>
+          ))}
+          <a href="#kontakt" onClick={() => setMenuOpen(false)}
+            style={{ fontFamily: 'var(--mono)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.08em', textDecoration: 'none', background: 'var(--accent)', color: 'var(--white)', padding: '0.65rem 1.25rem', borderRadius: '4px', textAlign: 'center' }}
+          >Kontakt</a>
+        </div>
+      )}
+
+      <style>{`
+        @media (max-width: 768px) {
+          .hidden-mobile { display: none !important; }
+          .show-mobile   { display: flex !important; }
+        }
+        @media (min-width: 769px) {
+          .show-mobile   { display: none !important; }
+          .hidden-mobile { display: flex !important; }
+        }
+      `}</style>
+    </nav>
   )
 }
