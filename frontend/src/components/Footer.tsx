@@ -1,106 +1,139 @@
-import { motion, useReducedMotion } from 'motion/react'
-import { Mail, MapPin } from 'lucide-react'
-import { Separator } from '@/components/ui/separator'
-import { Badge } from '@/components/ui/badge'
-import { company } from '@/lib/company'
+"use client"
 
-function scrollTo(href: string) {
-  const id = href.replace('#', '')
-  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
-}
+import { useState } from 'react'
 
 export default function Footer() {
-  const reducedMotion = useReducedMotion()
+  const [emailHov, setEmailHov] = useState(false)
+  const [liHov, setLiHov] = useState(false)
+  const [mailHov, setMailHov] = useState(false)
 
   return (
-    <footer className="relative bg-background border-t border-border overflow-hidden">
-      {/* Animated gradient background */}
-      {!reducedMotion && (
-        <motion.div
-          className="absolute inset-0 opacity-[0.06] pointer-events-none"
+    <footer
+      style={{
+        padding: 'clamp(1.5rem, 3vw, 2rem) clamp(1.5rem, 5vw, 3rem)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        borderTop: '1px solid var(--border)',
+        flexWrap: 'wrap',
+        gap: '1.5rem',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '0.5rem',
+        }}
+      >
+        <div
           style={{
-            background: 'var(--gradient-cta)',
-            backgroundSize: '400% 400%',
+            fontFamily: 'var(--mono)',
+            fontSize: '0.65rem',
+            textTransform: 'uppercase',
+            letterSpacing: '0.1em',
+            color: 'var(--text-muted)',
           }}
-          animate={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
-          transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
-          aria-hidden="true"
-        />
-      )}
+        >
+          Kontakta oss
+        </div>
+        <a
+          href="mailto:info@alltunderkontroll.se"
+          style={{
+            fontFamily: 'var(--serif)',
+            fontSize: '1.5rem',
+            color: emailHov ? 'var(--accent)' : 'var(--text)',
+            textDecoration: 'none',
+            transition: 'color 0.2s',
+          }}
+          onMouseEnter={() => setEmailHov(true)}
+          onMouseLeave={() => setEmailHov(false)}
+        >
+          info@alltunderkontroll.se
+        </a>
+      </div>
 
-      <div className="relative container-site py-16">
-        {/* Main grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
-          {/* Col 1 — Brand */}
-          <div className="space-y-4">
-            <p className="font-mono font-bold text-xl text-foreground">
-              alt_<span className="text-accent">ctrl_</span>
-            </p>
-            <p className="text-foreground-subtle text-sm leading-relaxed max-w-xs">
-              {company.tagline}
-            </p>
-            <a
-              href={`mailto:${company.email}`}
-              className="inline-flex items-center gap-2 text-accent text-sm font-sans hover:underline cursor-pointer"
-            >
-              <Mail size={14} aria-hidden="true" />
-              {company.email}
-            </a>
-            <p className="flex items-center gap-2 text-foreground-subtle text-sm">
-              <MapPin size={14} aria-hidden="true" />
-              {company.location}
-            </p>
-          </div>
-
-          {/* Col 2 — Navigation */}
-          <div className="space-y-4">
-            <p className="text-accent-label text-xs font-mono tracking-widest uppercase">
-              Navigera
-            </p>
-            <ul className="space-y-2" role="list">
-              {company.nav.map((link) => (
-                <li key={link.href}>
-                  <button
-                    onClick={() => scrollTo(link.href)}
-                    className="text-foreground-muted text-sm hover:text-foreground transition-colors duration-150 cursor-pointer min-h-[44px] flex items-center"
-                  >
-                    {link.label}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Col 3 — Services & Info */}
-          <div className="space-y-4">
-            <p className="text-accent-label text-xs font-mono tracking-widest uppercase">
-              Tjänster
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {company.services.map((s) => (
-                <Badge
-                  key={s}
-                  variant="outline"
-                  className="border-border text-foreground-subtle font-sans text-xs"
-                >
-                  {s}
-                </Badge>
-              ))}
-            </div>
-            <div className="pt-2 space-y-1">
-              <p className="text-foreground-subtle text-sm">{company.legalName}</p>
-              <p className="text-foreground-subtle text-sm">{company.location}, Sverige</p>
-            </div>
-          </div>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '2rem',
+          flexWrap: 'wrap',
+        }}
+      >
+        <div
+          style={{
+            fontFamily: 'var(--mono)',
+            fontSize: '0.65rem',
+            color: 'var(--text-muted)',
+            letterSpacing: '0.04em',
+          }}
+        >
+          &copy; 2026 Allt Under Kontroll AB
         </div>
 
-        {/* Copyright */}
-        <Separator className="my-10 bg-border" />
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-foreground-subtle text-xs font-sans">
-          <p>© {company.year} {company.legalName}. Alla rättigheter förbehållna.</p>
-          <p className="font-mono">
-            alt_<span className="text-accent">ctrl_</span>
-          </p>
+        <div style={{ display: 'flex', gap: '1rem' }}>
+          <a
+            href="#"
+            aria-label="LinkedIn"
+            style={{
+              width: '32px',
+              height: '32px',
+              border: `1px solid ${liHov ? 'var(--accent)' : 'var(--border)'}`,
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              textDecoration: 'none',
+              background: liHov ? 'var(--accent)' : 'transparent',
+              transition: 'all 0.2s',
+            }}
+            onMouseEnter={() => setLiHov(true)}
+            onMouseLeave={() => setLiHov(false)}
+          >
+            <svg
+              viewBox="0 0 24 24"
+              width="14"
+              height="14"
+              stroke={liHov ? 'var(--white)' : 'var(--text-muted)'}
+              fill="none"
+              strokeWidth="2"
+            >
+              <rect x="2" y="2" width="20" height="20" rx="5" />
+              <path d="M8 11v5M8 8v.01M12 16v-5c0-1 .6-2 2-2s2 1 2 2v5" />
+            </svg>
+          </a>
+
+          <a
+            href="mailto:info@alltunderkontroll.se"
+            aria-label="Email"
+            style={{
+              width: '32px',
+              height: '32px',
+              border: `1px solid ${mailHov ? 'var(--accent)' : 'var(--border)'}`,
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              textDecoration: 'none',
+              background: mailHov ? 'var(--accent)' : 'transparent',
+              transition: 'all 0.2s',
+            }}
+            onMouseEnter={() => setMailHov(true)}
+            onMouseLeave={() => setMailHov(false)}
+          >
+            <svg
+              viewBox="0 0 24 24"
+              width="14"
+              height="14"
+              stroke={mailHov ? 'var(--white)' : 'var(--text-muted)'}
+              fill="none"
+              strokeWidth="2"
+            >
+              <rect x="2" y="4" width="20" height="16" rx="2" />
+              <path d="M22 4L12 13 2 4" />
+            </svg>
+          </a>
         </div>
       </div>
     </footer>
