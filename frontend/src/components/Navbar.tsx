@@ -142,7 +142,7 @@ export default function Navbar() {
       {/* Robot track */}
       <div
         className="hidden-mobile"
-        style={{ flex: 1, margin: '0 2.5rem', position: 'relative', height: '34px' }}
+        style={{ width: '100%', maxWidth: '720px', margin: '0 auto', position: 'relative', height: '34px' }}
       >
         <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '1px', background: 'var(--border)' }} />
 
@@ -162,7 +162,7 @@ export default function Navbar() {
               }}
             >
               <span style={{
-                fontFamily: 'var(--mono)', fontSize: '0.7rem', fontWeight: 600,
+                fontFamily: 'var(--mono)', fontSize: '0.8rem', fontWeight: 600,
                 textTransform: 'uppercase', letterSpacing: '0.06em',
                 color: passed ? 'var(--accent)' : 'var(--text-secondary)',
                 whiteSpace: 'nowrap', marginBottom: '2px',

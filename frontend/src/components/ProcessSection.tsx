@@ -1,6 +1,5 @@
 "use client"
 
-import { ArrowUpRight } from 'lucide-react'
 import { useState } from 'react'
 import { useInView } from '../hooks/useInView'
 
@@ -102,25 +101,6 @@ function PhaseCard({ phase }: { phase: Phase }) {
       onMouseLeave={() => setHovered(false)}
     >
       {!phase.isLast && <div className="process-connector-arrow" aria-hidden />}
-
-      <div
-        style={{
-          position: 'absolute',
-          top: '2.5rem',
-          right: '2.5rem',
-          width: '28px',
-          height: '28px',
-          border: `1px solid ${hovered ? 'var(--accent)' : 'var(--border)'}`,
-          borderRadius: '50%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          background: hovered ? 'var(--accent)' : 'transparent',
-          transition: 'all 0.2s',
-        }}
-      >
-        <ArrowUpRight size={12} color={hovered ? 'var(--white)' : 'var(--text-muted)'} strokeWidth={2} />
-      </div>
 
       <div
         style={{

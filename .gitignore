@@ -1,10 +1,4 @@
-# Python
-__pycache__/
-*.pyc
-*.pyo
-.venv/
-
-# Environment — never commit secrets
+# Environment - never commit secrets
 .env
 .env.local
 .env.*.local
