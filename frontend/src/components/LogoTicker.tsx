@@ -37,7 +37,7 @@ export default function LogoTicker() {
           marginBottom: '1rem',
         }}
       >
-        Vi har arbetat med
+        Erfarenhet från
       </div>
 
       <div
