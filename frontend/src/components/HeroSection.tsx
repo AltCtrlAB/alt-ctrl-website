@@ -145,9 +145,10 @@ export default function HeroSection() {
           animation: 'fadeUp 0.8s ease 0.15s both',
         }}
       >
-        Svenska bolag med 20-300 anställda tappar hundratusentals kronor
-        årligen på processer som borde vara automatiserade. De flesta vet inte
-        ens var.
+        Svenska bolag tappar hundratusentals kronor årligen på processer
+        som borde vara automatiserade.
+        <br />
+        <em style={{ fontStyle: 'italic' }}>De flesta vet inte ens var.</em>
       </p>
 
       {/* CTA */}
