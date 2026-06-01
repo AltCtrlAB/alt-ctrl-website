@@ -1,8 +1,8 @@
 # Alt Ctrl Website
 
-The website for **Alt Ctrl AB** - a Swedish firm that helps companies identify and automate inefficient manual processes using AI, data integration, and business intelligence.
+The website for **alltunderkontroll AB** - a Swedish firm that helps companies identify and automate inefficient manual processes using AI, data integration, and business intelligence.
 
-We work with companies of 20–300 employees across industries - especially manufacturing, processing, and heavily regulated sectors - to deliver measurable improvements in weeks, not quarters.
+We work with companies of 20-300 employees across industries - especially manufacturing, processing, and heavily regulated sectors - to deliver measurable improvements in weeks, not quarters.
 
 **Contact:** [info@alltunderkontroll.se](mailto:info@alltunderkontroll.se)
 

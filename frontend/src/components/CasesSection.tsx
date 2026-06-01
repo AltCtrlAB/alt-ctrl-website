@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import { useEffect, useRef, useState } from 'react'
 import { useInView } from '../hooks/useInView'
@@ -56,8 +56,12 @@ export default function CasesSection() {
         borderBottom: '1px solid var(--border)',
       }}
     >
-      <div className="section-label" style={fadeStyle(0)}>Referenscase</div>
-      <div className="section-title" style={fadeStyle(80)}>Så här ser det ut när det funkar.</div>
+      <div className="section-label" style={fadeStyle(0)}>
+        Referenscase
+      </div>
+      <div className="section-title" style={fadeStyle(80)}>
+        Så här ser det ut när det funkar.
+      </div>
 
       <div
         style={{
@@ -91,13 +95,14 @@ function CaseCard({ caseItem }: { caseItem: Case }) {
     const el = cardRef.current
     if (!el) return
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
+      (entries) => {
+        const entry = entries[0]
+        if (entry?.isIntersecting) {
           setInView(true)
           observer.disconnect()
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.3 },
     )
     observer.observe(el)
     return () => observer.disconnect()

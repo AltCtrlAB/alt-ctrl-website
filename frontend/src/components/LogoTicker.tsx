@@ -1,17 +1,17 @@
-"use client"
+'use client'
 
 import { useState } from 'react'
 
 const clients: { name: string; category: string }[] = [
-  { name: 'Volvo',             category: '// Mobility' },
-  { name: 'Scania',            category: '// Mobility' },
-  { name: 'Stena',             category: '// Shipping & Energy' },
-  { name: 'Polestar',          category: '// EV / Automotive' },
-  { name: 'ESBE',              category: '// Industrikomponenter' },
-  { name: 'Gnotec',            category: '// Tillverkning' },
-  { name: 'Södra',             category: '// Skogsindustri' },
-  { name: 'RISE',              category: '// FoU' },
-  { name: 'Identimi',          category: '// Tech / SaaS' },
+  { name: 'Volvo', category: '// Mobility' },
+  { name: 'Scania', category: '// Mobility' },
+  { name: 'Stena', category: '// Shipping & Energy' },
+  { name: 'Polestar', category: '// EV / Automotive' },
+  { name: 'ESBE', category: '// Industrikomponenter' },
+  { name: 'Gnotec', category: '// Tillverkning' },
+  { name: 'Södra', category: '// Skogsindustri' },
+  { name: 'RISE', category: '// FoU' },
+  { name: 'Identimi', category: '// Tech / SaaS' },
   { name: 'Felina Foundation', category: '// Välgörenhet' },
 ]
 
@@ -40,11 +40,7 @@ export default function LogoTicker() {
         Erfarenhet från
       </div>
 
-      <div
-        style={{ overflow: 'hidden' }}
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-      >
+      <div style={{ overflow: 'hidden' }} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
         <div
           style={{
             display: 'flex',
@@ -55,11 +51,7 @@ export default function LogoTicker() {
           }}
         >
           {items.map((client, i) => (
-            <TickerItem
-              key={`${client.name}-${i}`}
-              client={client}
-              isLast={i === items.length - 1}
-            />
+            <TickerItem key={`${client.name}-${i}`} client={client} isLast={i === items.length - 1} />
           ))}
         </div>
       </div>
@@ -74,13 +66,7 @@ export default function LogoTicker() {
   )
 }
 
-function TickerItem({
-  client,
-  isLast,
-}: {
-  client: { name: string; category: string }
-  isLast: boolean
-}) {
+function TickerItem({ client, isLast }: { client: { name: string; category: string }; isLast: boolean }) {
   const [hovered, setHovered] = useState(false)
 
   return (

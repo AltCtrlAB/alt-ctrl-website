@@ -1,26 +1,28 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* ── Design tokens ── */
 :root {
-  --bg: #E6E2DC;
-  --bg-light: #EDEBE7;
-  --bg-card: #F2F0ED;
-  --accent: #3B9B62;
-  --accent-dark: #2D7A4D;
-  --text: #1A1A1A;
-  --text-secondary: #5A5650;
-  --text-muted: #8A847D;
-  --border: #C8C3BC;
-  --border-light: #D8D4CE;
-  --white: #FAFAF8;
+  --bg: #e6e2dc;
+  --bg-light: #edebe7;
+  --bg-card: #f2f0ed;
+  --accent: #3b9b62;
+  --accent-dark: #2d7a4d;
+  --text: #1a1a1a;
+  --text-secondary: #5a5650;
+  --text-muted: #8a847d;
+  --border: #c8c3bc;
+  --border-light: #d8d4ce;
+  --white: #fafaf8;
 
-  --serif: 'DM Serif Display', Georgia, serif;
-  --mono: 'JetBrains Mono', 'Courier New', monospace;
-  --sans: 'DM Sans', 'Helvetica Neue', sans-serif;
+  --serif: var(--font-dm-serif), Georgia, serif;
+  --mono: var(--font-jetbrains), 'Courier New', monospace;
+  --sans: var(--font-dm-sans), 'Helvetica Neue', sans-serif;
 }
 
 /* ── Reset ── */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -72,7 +74,9 @@ body {
 
 .border-grid-cell {
   background: var(--bg);
-  transition: background 0.3s, box-shadow 0.3s;
+  transition:
+    background 0.3s,
+    box-shadow 0.3s;
 }
 .border-grid-cell:hover {
   background: var(--bg-light);
@@ -106,8 +110,12 @@ body {
 
 /* ── Logo ticker animation ── */
 @keyframes ticker {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .ticker-track {
@@ -119,14 +127,26 @@ body {
 
 /* ── Hero fadeUp animation ── */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ── Avatar ring pulse ── */
 @keyframes avatarRing {
-  from { opacity: 0.6; transform: scale(1); }
-  to   { opacity: 0;   transform: scale(1.35); }
+  from {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.35);
+  }
 }
 
 /* ── Process step connector ── */
@@ -143,14 +163,18 @@ body {
   }
 }
 @media (max-width: 900px) {
-  .process-connector-arrow { display: none; }
+  .process-connector-arrow {
+    display: none;
+  }
 }
 
 /* ── FAQ answer transition ── */
 .faq-answer {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.35s ease, padding 0.35s ease;
+  transition:
+    max-height 0.35s ease,
+    padding 0.35s ease;
 }
 .faq-answer.open {
   max-height: 240px;

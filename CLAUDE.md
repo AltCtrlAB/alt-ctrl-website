@@ -1,6 +1,6 @@
-# Alt Ctrl - Website
+# Allt Under Kontroll - Website
 
-Landing page for Alt Ctrl, built with Next.js 16 + React 19 + TypeScript + Tailwind CSS v4.
+Landing page for `alltunderkontroll AB` (also called `alt_ctrl_`), built with Next.js 16 + React 19 + TypeScript + Tailwind CSS v4.
 
 ---
 

@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import { useState } from 'react'
 import { useInView } from '../hooks/useInView'
@@ -52,7 +52,9 @@ export default function TeamSection() {
         borderBottom: '1px solid var(--border)',
       }}
     >
-      <div className="section-label" style={fadeStyle(0)}>Teamet</div>
+      <div className="section-label" style={fadeStyle(0)}>
+        Teamet
+      </div>
       <div className="section-title" style={fadeStyle(80)}>
         Business, strategi och teknik, utan mellanhänder.
       </div>

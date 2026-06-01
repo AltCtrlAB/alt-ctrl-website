@@ -1,13 +1,9 @@
-"use client"
+'use client'
 
 import { useState, useEffect } from 'react'
 import { useInView } from '../hooks/useInView'
 
-const terminalLines = [
-  '> FÖRFRÅGAN MOTTAGEN',
-  '> STATUS: UNDER GRANSKNING',
-  '> VI ÅTERKOMMER INOM 1 ARBETSDAG',
-]
+const terminalLines = ['> FÖRFRÅGAN MOTTAGEN', '> STATUS: UNDER GRANSKNING', '> VI ÅTERKOMMER INOM 1 ARBETSDAG']
 
 function TerminalConfirmation() {
   const [visibleLines, setVisibleLines] = useState<string[]>([])
@@ -15,26 +11,23 @@ function TerminalConfirmation() {
   const [currentChar, setCurrentChar] = useState(0)
 
   useEffect(() => {
-    if (currentLine >= terminalLines.length) return
     const line = terminalLines[currentLine]
+    if (!line) return
 
     if (currentChar < line.length) {
-      const t = setTimeout(() => setCurrentChar(c => c + 1), 40)
+      const t = setTimeout(() => setCurrentChar((c) => c + 1), 40)
       return () => clearTimeout(t)
     } else {
       const t = setTimeout(() => {
-        setVisibleLines(l => [...l, line])
-        setCurrentLine(l => l + 1)
+        setVisibleLines((l) => [...l, line])
+        setCurrentLine((l) => l + 1)
         setCurrentChar(0)
       }, 600)
       return () => clearTimeout(t)
     }
   }, [currentLine, currentChar])
 
-  const activeLineText =
-    currentLine < terminalLines.length
-      ? terminalLines[currentLine].slice(0, currentChar)
-      : null
+  const activeLineText = currentLine < terminalLines.length ? terminalLines[currentLine]?.slice(0, currentChar) : null
 
   return (
     <div style={{ textAlign: 'left', maxWidth: '520px', margin: '0 auto' }}>
@@ -81,14 +74,16 @@ function TerminalConfirmation() {
 
 function FieldLabel({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{
-      fontFamily: 'var(--mono)',
-      fontSize: '0.65rem',
-      textTransform: 'uppercase',
-      letterSpacing: '0.08em',
-      color: 'var(--text-muted)',
-      marginBottom: '0.4rem',
-    }}>
+    <div
+      style={{
+        fontFamily: 'var(--mono)',
+        fontSize: '0.65rem',
+        textTransform: 'uppercase',
+        letterSpacing: '0.08em',
+        color: 'var(--text-muted)',
+        marginBottom: '0.4rem',
+      }}
+    >
       {children}
     </div>
   )
@@ -108,19 +103,12 @@ const inputBase: React.CSSProperties = {
   boxSizing: 'border-box',
 }
 
-function Field({
-  label,
-  required,
-  children,
-}: {
-  label: string
-  required?: boolean
-  children: React.ReactNode
-}) {
+function Field({ label, required, children }: { label: string; required?: boolean; children: React.ReactNode }) {
   return (
     <div>
       <FieldLabel>
-        {label}{required && <span style={{ color: 'var(--accent)', marginLeft: '2px' }}>*</span>}
+        {label}
+        {required && <span style={{ color: 'var(--accent)', marginLeft: '2px' }}>*</span>}
       </FieldLabel>
       {children}
     </div>
@@ -135,7 +123,7 @@ export default function CTASection() {
   const { ref, inView } = useInView()
 
   const set = (field: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-    setForm(f => ({ ...f, [field]: e.target.value }))
+    setForm((f) => ({ ...f, [field]: e.target.value }))
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -174,10 +162,7 @@ export default function CTASection() {
           margin: '0 auto',
         }}
       >
-        <div
-          className="section-label"
-          style={{ ...fadeStyle(0), justifyContent: 'center', display: 'flex' }}
-        >
+        <div className="section-label" style={{ ...fadeStyle(0), justifyContent: 'center', display: 'flex' }}>
           Nästa steg
         </div>
 
@@ -205,9 +190,8 @@ export default function CTASection() {
             fontSize: '1rem',
           }}
         >
-          I ett inledande samtal på 30 minuter lär vi känna er verksamhet och
-          berättar vad en förstudie faktiskt innebär för er. Ni bestämmer sedan
-          om ni vill gå vidare.
+          I ett kostnadsfritt inledande samtal på 30 minuter lär vi känna er verksamhet och berättar vad en förstudie
+          faktiskt innebär för er. Ni bestämmer sedan om ni vill gå vidare.
         </p>
 
         {submitted ? (
@@ -281,8 +265,23 @@ export default function CTASection() {
               />
             </Field>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
-              <span style={{ fontFamily: 'var(--mono)', fontSize: '0.65rem', color: 'var(--text-muted)', letterSpacing: '0.04em' }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                gap: '1rem',
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: 'var(--mono)',
+                  fontSize: '0.65rem',
+                  color: 'var(--text-muted)',
+                  letterSpacing: '0.04em',
+                }}
+              >
                 * obligatoriska fält
               </span>
               <button

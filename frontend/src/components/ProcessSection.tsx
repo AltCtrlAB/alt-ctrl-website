@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import { useState } from 'react'
 import { useInView } from '../hooks/useInView'
@@ -54,7 +54,9 @@ export default function ProcessSection() {
         borderBottom: '1px solid var(--border)',
       }}
     >
-      <div className="section-label" style={fadeStyle(0)}>Så här arbetar vi</div>
+      <div className="section-label" style={fadeStyle(0)}>
+        Så här arbetar vi
+      </div>
       <div className="section-title" style={fadeStyle(80)}>
         Från kartläggning till mätbar effekt. På veckor, inte år.
       </div>

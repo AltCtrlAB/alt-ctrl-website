@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import { useState } from 'react'
 
@@ -74,7 +74,9 @@ export default function Footer() {
 
         <div style={{ display: 'flex', gap: '1rem' }}>
           <a
-            href="#"
+            href="https://www.linkedin.com/company/allt-under-kontroll-ab/"
+            target="_blank"
+            rel="noopener noreferrer"
             aria-label="LinkedIn"
             style={{
               width: '32px',

@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import { useState } from 'react'
 
@@ -60,9 +60,8 @@ export default function CustomBanner() {
               lineHeight: 1.6,
             }}
           >
-            Vi börjar alltid i verksamheten. Boka ett 30-minuterssamtal så
-            identifierar vi era mest lönsamma förbättringsområden, med
-            estimerad effekt i tid och kronor.
+            Vi börjar alltid i verksamheten. Boka ett kostnadsfritt 30-minuterssamtal så identifierar vi era mest
+            lönsamma förbättringsområden, med estimerad effekt i tid och kronor.
           </p>
         </div>
         <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
