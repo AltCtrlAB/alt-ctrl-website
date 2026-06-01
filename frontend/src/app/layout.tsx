@@ -84,6 +84,30 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="sv" className={`${dmSerifDisplay.variable} ${jetbrainsMono.variable} ${dmSans.variable}`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: 'Allt Under Kontroll AB',
+              alternateName: 'alt_ctrl_',
+              url: 'https://www.alltunderkontroll.se',
+              logo: 'https://www.alltunderkontroll.se/assets/og-image.png',
+              description:
+                'Vi bygger skräddarsydda AI- och SaaS-lösningar till fast pris, anpassade efter kundens befintliga system och miljö.',
+              email: 'info@alltunderkontroll.se',
+              sameAs: ['https://www.linkedin.com/company/allt-under-kontroll-ab/'],
+              address: {
+                '@type': 'PostalAddress',
+                addressLocality: 'Göteborg',
+                addressCountry: 'SE',
+              },
+            }),
+          }}
+        />
+      </head>
       <body>{children}</body>
     </html>
   )
