@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import { useInView } from '../hooks/useInView'
 
@@ -63,7 +63,9 @@ export default function AIPhilosophySection() {
         className="ai-philosophy-grid"
       >
         <div>
-          <div className="section-label" style={fade(0)}>Vår syn på AI</div>
+          <div className="section-label" style={fade(0)}>
+            Vår syn på AI
+          </div>
 
           <h2
             style={{
@@ -75,10 +77,7 @@ export default function AIPhilosophySection() {
               ...fade(80),
             }}
           >
-            AI i loopen.{' '}
-            <em style={{ fontStyle: 'italic', color: 'var(--accent)' }}>
-              Experten i kontrollen.
-            </em>
+            AI i loopen. <em style={{ fontStyle: 'italic', color: 'var(--accent)' }}>Experten i kontrollen.</em>
           </h2>
 
           <p
@@ -91,10 +90,9 @@ export default function AIPhilosophySection() {
               ...fade(160),
             }}
           >
-            Vi vet när AI tillför värde och när det inte gör det. Det handlar
-            inte om att välja bort tekniken - det handlar om att använda den
-            med omdöme. Oavsett vad vi bygger gäller samma princip: systemet
-            är beslutsunderlaget, ni är beslutsfattarna.
+            Vi vet när AI tillför värde och när det inte gör det. Det handlar inte om att välja bort tekniken - det
+            handlar om att använda den med omdöme. Oavsett vad vi bygger gäller samma princip: systemet är
+            beslutsunderlaget, ni är beslutsfattarna.
           </p>
 
           <p
@@ -109,8 +107,7 @@ export default function AIPhilosophySection() {
               ...fade(220),
             }}
           >
-            Det ger er kontroll. Och det ger er en partner som kan säga nej
-            till AI när det faktiskt är rätt svar.
+            Det ger er kontroll. Och det ger er en partner som kan säga nej till AI när det faktiskt är rätt svar.
           </p>
         </div>
 

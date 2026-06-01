@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import { useState } from 'react'
 import { useInView } from '../hooks/useInView'
@@ -69,8 +69,7 @@ const services: Service[] = [
       </svg>
     ),
     title: 'Dashboards & BI',
-    description:
-      'Ni ser avvikelser innan de eskalerar, med dashboard anpassat till era faktiska mätpunkter.',
+    description: 'Ni ser avvikelser innan de eskalerar, med dashboard anpassat till era faktiska mätpunkter.',
   },
   {
     num: '06_',
@@ -104,8 +103,12 @@ export default function ServicesSection() {
         borderBottom: '1px solid var(--border)',
       }}
     >
-      <div className="section-label" style={fadeStyle(0)}>Tjänster, allt på en plats</div>
-      <div className="section-title" style={fadeStyle(80)}>Vi hittar rätt, och levererar.</div>
+      <div className="section-label" style={fadeStyle(0)}>
+        Tjänster, allt på en plats
+      </div>
+      <div className="section-title" style={fadeStyle(80)}>
+        Vi hittar rätt, och levererar.
+      </div>
 
       <div
         style={{

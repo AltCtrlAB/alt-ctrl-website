@@ -1,6 +1,15 @@
-"use client"
+'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
+
+const mqReduce = typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)') : null
+function subscribeReducedMotion(cb: () => void) {
+  mqReduce?.addEventListener('change', cb)
+  return () => mqReduce?.removeEventListener('change', cb)
+}
+function getReducedMotion() {
+  return mqReduce?.matches ?? false
+}
 
 const rotatingWords = ['Snabbare beslut', 'Lägre kostnader', 'Smartare processer', 'Färre manuella steg']
 
@@ -9,11 +18,7 @@ export default function HeroSection() {
   const [animating, setAnimating] = useState(false)
   const gridRef = useRef<HTMLDivElement>(null)
   const [ctaHov, setCtaHov] = useState(false)
-  const [reducedMotion, setReducedMotion] = useState(false)
-
-  useEffect(() => {
-    setReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
-  }, [])
+  const reducedMotion = useSyncExternalStore(subscribeReducedMotion, getReducedMotion, () => false)
 
   useEffect(() => {
     if (reducedMotion) return
@@ -89,7 +94,7 @@ export default function HeroSection() {
           animation: 'fadeUp 0.8s ease both',
         }}
       >
-        <span style={{ opacity: 0.6, marginRight: '0.5rem' }}>//</span>
+        <span style={{ opacity: 0.6, marginRight: '0.5rem' }}>{'// '}</span>
         Allt Under Kontroll AB · Göteborg
       </div>
 
@@ -145,8 +150,7 @@ export default function HeroSection() {
           animation: 'fadeUp 0.8s ease 0.15s both',
         }}
       >
-        Svenska bolag tappar hundratusentals kronor årligen på processer
-        som borde vara automatiserade.
+        Svenska bolag tappar hundratusentals kronor årligen på processer som borde vara automatiserade.
         <br />
         <em style={{ fontStyle: 'italic' }}>De flesta vet inte ens var.</em>
       </p>
