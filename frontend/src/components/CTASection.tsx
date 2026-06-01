@@ -205,7 +205,7 @@ export default function CTASection() {
             fontSize: '1rem',
           }}
         >
-          I ett inledande samtal på 30 minuter lär vi känna er verksamhet och
+          I ett kostnadsfritt inledande samtal på 30 minuter lär vi känna er verksamhet och
           berättar vad en förstudie faktiskt innebär för er. Ni bestämmer sedan
           om ni vill gå vidare.
         </p>

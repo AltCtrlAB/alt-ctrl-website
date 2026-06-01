@@ -60,7 +60,7 @@ export default function CustomBanner() {
               lineHeight: 1.6,
             }}
           >
-            Vi börjar alltid i verksamheten. Boka ett 30-minuterssamtal så
+            Vi börjar alltid i verksamheten. Boka ett kostnadsfritt 30-minuterssamtal så
             identifierar vi era mest lönsamma förbättringsområden, med
             estimerad effekt i tid och kronor.
           </p>

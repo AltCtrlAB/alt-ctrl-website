@@ -14,9 +14,9 @@
   --border-light: #D8D4CE;
   --white: #FAFAF8;
 
-  --serif: 'DM Serif Display', Georgia, serif;
-  --mono: 'JetBrains Mono', 'Courier New', monospace;
-  --sans: 'DM Sans', 'Helvetica Neue', sans-serif;
+  --serif: var(--font-dm-serif), Georgia, serif;
+  --mono: var(--font-jetbrains), 'Courier New', monospace;
+  --sans: var(--font-dm-sans), 'Helvetica Neue', sans-serif;
 }
 
 /* ── Reset ── */

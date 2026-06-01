@@ -31,7 +31,7 @@ const faqItems: FAQItem[] = [
     num: '04_',
     question: 'Vilken typ av bolag jobbar ni med?',
     answer:
-      'Vi jobbar med svenska bolag i spannet 20-300 anställda, framför allt inom industri, tillverkning och regulatoriskt tunga branscher. Vi har också erfarenhet från större bolag som Volvo och Stena. Metodiken är densamma oavsett storlek - det som skiljer sig är vad ni prioriterar och hur snabbt vi kan röra oss.',
+      'Vi jobbar med svenska bolag som vill eliminera manuella steg, sänka kostnader och fatta snabbare beslut. Våra kunder finns främst inom industri, tillverkning och regulatoriskt tunga branscher, men metodiken fungerar oavsett bransch. Det viktigaste är inte storleken på bolaget, utan viljan att arbeta smartare.',
   },
   {
     num: '05_',
