@@ -135,9 +135,19 @@ export default function Navbar() {
     }
     const t = setTimeout(measure, 400)
     window.addEventListener('resize', measure)
+
+    let debounceTimer: ReturnType<typeof setTimeout>
+    const ro = new ResizeObserver(() => {
+      clearTimeout(debounceTimer)
+      debounceTimer = setTimeout(measure, 100)
+    })
+    ro.observe(document.documentElement)
+
     return () => {
       clearTimeout(t)
+      clearTimeout(debounceTimer)
       window.removeEventListener('resize', measure)
+      ro.disconnect()
     }
   }, [])
 
@@ -199,7 +209,7 @@ export default function Navbar() {
       {/* Robot track */}
       <div
         className="hidden-mobile"
-        style={{ width: '100%', maxWidth: '720px', margin: '0 auto', position: 'relative', height: '34px' }}
+        style={{ flex: 1, maxWidth: '720px', margin: '0 1.5rem', position: 'relative', height: '34px' }}
       >
         <div
           style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '1px', background: 'var(--border)' }}
@@ -333,50 +343,43 @@ export default function Navbar() {
           }}
           className="show-mobile"
         >
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setMenuOpen(false)}
-              style={{
-                fontFamily: 'var(--mono)',
-                fontSize: '0.75rem',
-                textTransform: 'uppercase',
-                letterSpacing: '0.08em',
-                textDecoration: 'none',
-                color: 'var(--text-secondary)',
-              }}
-            >
-              {link.label}
-            </a>
-          ))}
-          <a
-            href="#kontakt"
-            onClick={() => setMenuOpen(false)}
-            style={{
-              fontFamily: 'var(--mono)',
-              fontSize: '0.75rem',
-              textTransform: 'uppercase',
-              letterSpacing: '0.08em',
-              textDecoration: 'none',
-              background: 'var(--accent)',
-              color: 'var(--white)',
-              padding: '0.65rem 1.25rem',
-              borderRadius: '4px',
-              textAlign: 'center',
-            }}
-          >
-            Kontakt
-          </a>
+          {navLinks.map((link) => {
+            const isKontakt = link.href === '#kontakt'
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                style={{
+                  fontFamily: 'var(--mono)',
+                  fontSize: '0.75rem',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.08em',
+                  textDecoration: 'none',
+                  ...(isKontakt
+                    ? {
+                        background: 'var(--accent)',
+                        color: 'var(--white)',
+                        padding: '0.65rem 1.25rem',
+                        borderRadius: '4px',
+                        textAlign: 'center' as const,
+                      }
+                    : { color: 'var(--text-secondary)' }),
+                }}
+              >
+                {link.label}
+              </a>
+            )
+          })}
         </div>
       )}
 
       <style>{`
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
           .hidden-mobile { display: none !important; }
           .show-mobile   { display: flex !important; }
         }
-        @media (min-width: 769px) {
+        @media (min-width: 901px) {
           .show-mobile   { display: none !important; }
           .hidden-mobile { display: flex !important; }
         }
