@@ -112,14 +112,13 @@ export default function HeroSection() {
           animationDelay: '0.05s',
         }}
       >
-        Er partner inom{' '}
+        Er partner inom
         <span
           aria-live="polite"
           aria-label={rotatingWords[wordIndex]}
           style={{
-            display: 'inline-block',
+            display: 'block',
             overflow: 'hidden',
-            verticalAlign: 'bottom',
             height: '1.15em',
             position: 'relative',
           }}

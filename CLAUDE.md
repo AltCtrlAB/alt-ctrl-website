@@ -45,6 +45,10 @@ cd frontend && bun dev
 
 The dev server runs at **http://localhost:3000**.
 
+### Before committing
+
+Run `./check.sh` from the project root to verify all checks pass (TypeScript, ESLint, Prettier, build). Use this instead of running individual checks — it gives a compact pass/fail summary.
+
 ---
 
 ## Production Build
@@ -93,6 +97,7 @@ alt-ctrl-website/
 │   ├── eslint.config.mjs
 │   └── package.json
 ├── dev.sh                          # Starts the Next.js dev server via Bun
+├── check.sh                        # Runs all code quality checks with summary
 └── README.md
 ```
 
@@ -106,3 +111,4 @@ alt-ctrl-website/
 | `bun run build` | Production build |
 | `bun run start` | Start production server |
 | `bun run lint` | Run ESLint |
+| `./check.sh` | Run all checks (typecheck, lint, format, build) with pass/fail summary |
