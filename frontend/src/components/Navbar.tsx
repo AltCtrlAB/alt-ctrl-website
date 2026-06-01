@@ -4,10 +4,11 @@ import { useState, useEffect } from 'react'
 
 const SECTIONS = [
   { id: 'metod', label: 'Metod', visualPct: 0 },
-  { id: 'tjanster', label: 'Tjänster', visualPct: 0.2 },
-  { id: 'ai', label: 'Vår syn', visualPct: 0.4 },
-  { id: 'case', label: 'Case', visualPct: 0.6 },
-  { id: 'teamet', label: 'Teamet', visualPct: 0.8 },
+  { id: 'tjanster', label: 'Tjänster', visualPct: 0.17 },
+  { id: 'ai', label: 'Vår syn', visualPct: 0.33 },
+  { id: 'case', label: 'Case', visualPct: 0.5 },
+  { id: 'teamet', label: 'Teamet', visualPct: 0.67 },
+  { id: 'kontakt', label: 'Kontakt', visualPct: 0.83 },
   { id: 'faq', label: 'FAQ', visualPct: 1.0 },
 ]
 
