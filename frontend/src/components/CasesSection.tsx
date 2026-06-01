@@ -67,7 +67,8 @@ export default function CasesSection() {
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '1px',
+          columnGap: '1px',
+          rowGap: 0,
           background: 'var(--border)',
           border: '1px solid var(--border)',
         }}
@@ -113,8 +114,9 @@ function CaseCard({ caseItem }: { caseItem: Case }) {
       ref={cardRef}
       style={{
         background: 'var(--bg)',
-        display: 'flex',
-        flexDirection: 'column',
+        display: 'grid',
+        gridTemplateRows: 'subgrid',
+        gridRow: 'span 2',
         transition: 'background 0.3s, box-shadow 0.3s',
       }}
       onMouseEnter={(e) => {
@@ -128,7 +130,7 @@ function CaseCard({ caseItem }: { caseItem: Case }) {
         el.style.boxShadow = 'none'
       }}
     >
-      <div style={{ padding: '2.5rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
+      <div style={{ padding: '2.5rem', display: 'flex', flexDirection: 'column' }}>
         <div
           style={{
             fontFamily: 'var(--mono)',
@@ -189,7 +191,6 @@ function CaseCard({ caseItem }: { caseItem: Case }) {
           borderTop: '1px solid var(--border)',
           background: 'rgba(59, 155, 98, 0.06)',
           letterSpacing: '0.02em',
-          minHeight: '3.5em',
           display: 'flex',
           alignItems: 'center',
           opacity: inView ? 1 : 0,

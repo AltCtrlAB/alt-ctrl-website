@@ -343,34 +343,23 @@ export default function Navbar() {
           }}
           className="show-mobile"
         >
-          {navLinks.map((link) => {
-            const isKontakt = link.href === '#kontakt'
-            return (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setMenuOpen(false)}
-                style={{
-                  fontFamily: 'var(--mono)',
-                  fontSize: '0.75rem',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.08em',
-                  textDecoration: 'none',
-                  ...(isKontakt
-                    ? {
-                        background: 'var(--accent)',
-                        color: 'var(--white)',
-                        padding: '0.65rem 1.25rem',
-                        borderRadius: '4px',
-                        textAlign: 'center' as const,
-                      }
-                    : { color: 'var(--text-secondary)' }),
-                }}
-              >
-                {link.label}
-              </a>
-            )
-          })}
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={() => setMenuOpen(false)}
+              style={{
+                fontFamily: 'var(--mono)',
+                fontSize: '0.75rem',
+                textTransform: 'uppercase',
+                letterSpacing: '0.08em',
+                textDecoration: 'none',
+                color: 'var(--text-secondary)',
+              }}
+            >
+              {link.label}
+            </a>
+          ))}
         </div>
       )}
 
