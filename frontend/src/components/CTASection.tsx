@@ -118,6 +118,8 @@ function Field({ label, required, children }: { label: string; required?: boolea
 export default function CTASection() {
   const [form, setForm] = useState({ name: '', email: '', company: '', message: '' })
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [btnHov, setBtnHov] = useState(false)
   const [focused, setFocused] = useState<string | null>(null)
   const { ref, inView } = useInView()
@@ -125,9 +127,32 @@ export default function CTASection() {
   const set = (field: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm((f) => ({ ...f, [field]: e.target.value }))
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (form.name.trim() && form.email.trim()) setSubmitted(true)
+    if (!form.name.trim() || !form.email.trim()) return
+
+    setSubmitting(true)
+    setError(null)
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      const data = await res.json()
+
+      if (!res.ok) {
+        setError(data.error || 'Något gick fel. Försök igen.')
+        return
+      }
+
+      setSubmitted(true)
+    } catch {
+      setError('Kunde inte nå servern. Kontrollera din internetanslutning.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const focusStyle = (name: string): React.CSSProperties => ({
@@ -217,6 +242,7 @@ export default function CTASection() {
                   onChange={set('name')}
                   placeholder="Anna Svensson"
                   required
+                  disabled={submitting}
                   style={focusStyle('name')}
                   onFocus={() => setFocused('name')}
                   onBlur={() => setFocused(null)}
@@ -229,6 +255,7 @@ export default function CTASection() {
                   onChange={set('email')}
                   placeholder="anna@foretaget.se"
                   required
+                  disabled={submitting}
                   style={focusStyle('email')}
                   onFocus={() => setFocused('email')}
                   onBlur={() => setFocused(null)}
@@ -242,6 +269,7 @@ export default function CTASection() {
                 value={form.company}
                 onChange={set('company')}
                 placeholder="Företaget AB"
+                disabled={submitting}
                 style={focusStyle('company')}
                 onFocus={() => setFocused('company')}
                 onBlur={() => setFocused(null)}
@@ -254,6 +282,7 @@ export default function CTASection() {
                 onChange={set('message')}
                 placeholder="Berätta kort om er verksamhet och vad ni vill åstadkomma..."
                 rows={4}
+                disabled={submitting}
                 style={{
                   ...focusStyle('message'),
                   resize: 'vertical',
@@ -264,6 +293,23 @@ export default function CTASection() {
                 onBlur={() => setFocused(null)}
               />
             </Field>
+
+            {error && (
+              <div
+                style={{
+                  padding: '0.75rem 1rem',
+                  background: 'rgba(220, 38, 38, 0.08)',
+                  border: '1px solid rgba(220, 38, 38, 0.3)',
+                  borderRadius: '4px',
+                  fontFamily: 'var(--mono)',
+                  fontSize: '0.75rem',
+                  color: '#dc2626',
+                  letterSpacing: '0.02em',
+                }}
+              >
+                {error}
+              </div>
+            )}
 
             <div
               style={{
@@ -286,9 +332,10 @@ export default function CTASection() {
               </span>
               <button
                 type="submit"
+                disabled={submitting}
                 style={{
                   padding: '0.85rem 2rem',
-                  background: btnHov ? 'var(--accent-dark)' : 'var(--accent)',
+                  background: submitting ? 'var(--text-muted)' : btnHov ? 'var(--accent-dark)' : 'var(--accent)',
                   border: 'none',
                   borderRadius: '4px',
                   fontFamily: 'var(--mono)',
@@ -296,14 +343,15 @@ export default function CTASection() {
                   textTransform: 'uppercase',
                   letterSpacing: '0.08em',
                   color: 'var(--white)',
-                  cursor: 'pointer',
+                  cursor: submitting ? 'not-allowed' : 'pointer',
                   transition: 'background 0.2s',
                   flexShrink: 0,
+                  opacity: submitting ? 0.7 : 1,
                 }}
                 onMouseEnter={() => setBtnHov(true)}
                 onMouseLeave={() => setBtnHov(false)}
               >
-                Skicka förfrågan
+                {submitting ? 'Skickar...' : 'Skicka förfrågan'}
               </button>
             </div>
           </form>
