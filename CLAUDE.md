@@ -47,7 +47,7 @@ The dev server runs at **http://localhost:3000**.
 
 ### Before committing
 
-Run `./check.sh` from the project root to verify all checks pass (TypeScript, ESLint, Prettier, build). Use this instead of running individual checks — it gives a compact pass/fail summary.
+Run `./check.sh` from the project root to verify all checks pass (TypeScript, ESLint, Prettier). The checks run in parallel for speed. Use this instead of running individual checks - it gives a compact pass/fail summary. The production `build` is intentionally excluded (it duplicates typecheck + lint) and is left to CI; run `bun run build` manually when you need to verify a production bundle.
 
 ---
 
@@ -111,4 +111,4 @@ alt-ctrl-website/
 | `bun run build` | Production build |
 | `bun run start` | Start production server |
 | `bun run lint` | Run ESLint |
-| `./check.sh` | Run all checks (typecheck, lint, format, build) with pass/fail summary |
+| `./check.sh` | Run checks (typecheck, lint, format) in parallel with pass/fail summary |
