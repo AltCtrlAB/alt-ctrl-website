@@ -40,7 +40,15 @@ export default function LogoTicker() {
         Erfarenhet från
       </div>
 
-      <div style={{ overflow: 'hidden' }} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+      <div
+        style={{
+          overflow: 'hidden',
+          maskImage: 'linear-gradient(to right, transparent, #000 4rem, #000 calc(100% - 4rem), transparent)',
+          WebkitMaskImage: 'linear-gradient(to right, transparent, #000 4rem, #000 calc(100% - 4rem), transparent)',
+        }}
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
         <div
           style={{
             display: 'flex',
