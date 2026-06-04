@@ -84,7 +84,7 @@ export default function ProcessSection() {
     let displayed = 0
 
     // Scroll position → where the fill *should* be. Fill as the road travels from 75% → 30%
-    // of the viewport height — a wide band so the 1→2→3 milestones spread out, while
+    // of the viewport height - a wide band so the 1→2→3 milestones spread out, while
     // completion (30%) still sits above where it rests after a "#metod" jump.
     const computeTarget = () => {
       const el = roadRef.current
@@ -137,7 +137,7 @@ export default function ProcessSection() {
   const eps = 0.001
   const nodeActive = phases.map((_, i) => progress >= (thresholds[i] ?? FALLBACK_THRESHOLDS[i] ?? 1) - eps)
   const goalActive = progress >= goalThreshold - eps
-  // Only the most recently reached milestone (the "frontier") ripples — so a new
+  // Only the most recently reached milestone (the "frontier") ripples - so a new
   // trigger stops the previous one and the two never overlap.
   const frontierNode = goalActive ? -1 : nodeActive.lastIndexOf(true)
 
@@ -182,7 +182,7 @@ export default function ProcessSection() {
               zIndex: 0,
             }}
           />
-          {/* Green progress line — scaleX follows scroll */}
+          {/* Green progress line - scaleX follows scroll */}
           <div
             aria-hidden
             style={{
@@ -219,7 +219,7 @@ export default function ProcessSection() {
             <span style={{ ...capLabelStyle, color: 'var(--accent)' }}>Start</span>
           </div>
 
-          {/* Milestone nodes — left-aligned in each column, above their text */}
+          {/* Milestone nodes - left-aligned in each column, above their text */}
           {phases.map((phase, i) => (
             <div
               key={phase.num}

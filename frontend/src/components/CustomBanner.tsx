@@ -10,9 +10,14 @@ interface Contact {
 }
 
 const contacts: Contact[] = [
-  { key: 'mail', label: 'Maila oss', value: 'contact@alltunderkontroll.se', href: 'mailto:contact@alltunderkontroll.se' },
+  {
+    key: 'mail',
+    label: 'Maila oss',
+    value: 'contact@alltunderkontroll.se',
+    href: 'mailto:contact@alltunderkontroll.se',
+  },
   { key: 'tel', label: 'Ring oss', value: '+46 76 868 06 71', href: 'tel:+46768680671' },
-  { key: 'fika', label: 'Boka en fika', value: '30 min – vi bjuder', href: '#kontakt' },
+  { key: 'fika', label: 'Boka en fika', value: '30 min - vi bjuder', href: '#kontakt' },
 ]
 
 const iconPaths: Record<string, React.ReactNode> = {
