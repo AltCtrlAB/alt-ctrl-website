@@ -1,24 +1,45 @@
-# Environment - never commit secrets
-.env
-.env.local
-.env.*.local
+# ─── Secrets / env (never commit; .env.example is the committed template) ───
+.env*
+!.env.example
 
-# Node
+# ─── Dependencies ───
 node_modules/
+package-lock.json
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
 
-# OS
+# ─── Next.js / build output (app lives in frontend/) ───
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/coverage/
+*.tsbuildinfo
+next-env.d.ts
+.eslintcache
+
+# ─── Vercel ───
+.vercel
+
+# ─── Logs ───
+*.log
+
+# ─── OS ───
 .DS_Store
 Thumbs.db
 
-# IDE
+# ─── Editors / IDE ───
 .idea/
 .vscode/
 *.swp
 *.swo
 
-# Logs
-*.log
+# ─── Certs / keys ───
+*.pem
 
-# Claude Code internal config
+# ─── Claude Code ───
 .claude/
 plan.md

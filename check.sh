@@ -2,7 +2,7 @@
 
 cd "$(dirname "$0")/frontend"
 
-# Checks run in parallel — each is independent, so wall time is the slowest
+# Checks run in parallel - each is independent, so wall time is the slowest
 # step rather than the sum. `build` is intentionally excluded: it re-runs
 # typecheck + lint internally (duplicating work) and is better left to CI.
 names=("TypeScript" "ESLint" "Prettier")
