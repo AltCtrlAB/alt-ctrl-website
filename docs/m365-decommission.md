@@ -1,4 +1,4 @@
-# Decommission Microsoft 365 / Entra ID — Graph email sending
+# Decommission Microsoft 365 / Entra ID - Graph email sending
 
 We migrated the contact-form email sending from **Microsoft Graph `sendMail`** to **Resend**
 (see `frontend/src/app/api/contact/route.ts`). The app no longer calls Microsoft Graph, so the
@@ -37,17 +37,17 @@ Please do the following, INVENTORY FIRST and confirm with me before any destruct
    shared in plaintext): ensure it is deleted/rotated.
 
 DO NOT TOUCH / explicitly preserve (we still use M365 for receiving mail):
-- The MX records and the contact@alltunderkontroll.se mailbox — we still read mail there.
+- The MX records and the contact@alltunderkontroll.se mailbox - we still read mail there.
 - The domain's existing M365 SPF include (spf.protection.outlook.com) and M365 DKIM CNAMEs
   IF any mailbox still sends/receives via Exchange Online. Do NOT strip Microsoft auth records
-  that real mailboxes depend on. (Resend adds its OWN separate SPF/DKIM/return-path records —
+  that real mailboxes depend on. (Resend adds its OWN separate SPF/DKIM/return-path records -
   additive; leave those alone.)
 - Decision needed from me: whether to KEEP noreply@alltunderkontroll.se as a real M365 mailbox
   (with Resend it's only a "From" identity authenticated by Resend's DKIM and needs no M365
   mailbox), or remove it to free a license. Ask me before removing it.
 
 Deliverable: an inventory of what exists, a proposed removal list, and what you recommend
-keeping vs deleting — then wait for my go-ahead before making changes.
+keeping vs deleting - then wait for my go-ahead before making changes.
 ```
 
 ---

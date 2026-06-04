@@ -66,8 +66,8 @@ export async function POST(request: Request) {
 
   const safeName = escapeHtml(trimmedName)
   const safeEmail = escapeHtml(trimmedEmail)
-  const safeCompany = escapeHtml(trimmedCompany || '–')
-  const safeMessage = escapeHtml((message || '').trim() || '–')
+  const safeCompany = escapeHtml(trimmedCompany || '-')
+  const safeMessage = escapeHtml((message || '').trim() || '-')
 
   // Email 1: the submission, FROM noreply@ -> TO the team (contact@).
   const teamSubject = `Ny förfrågan från ${trimmedName}${trimmedCompany ? ` (${trimmedCompany})` : ''}`
@@ -86,7 +86,7 @@ export async function POST(request: Request) {
     <div style="font-family:sans-serif;font-size:14px;line-height:1.6;max-width:600px">
       <p>Hej ${safeName},</p>
       <p>Tack för ditt meddelande. Vi har mottagit det och svarar så snart som möjligt, vanligtvis inom 24 timmar.</p>
-      <p style="color:#888">Detta är en automatisk bekräftelse på en obevakad adress – vänligen svara inte på detta mejl.</p>
+      <p style="color:#888">Detta är en automatisk bekräftelse på en obevakad adress, vänligen svara inte på detta mejl.</p>
       <p>Vänliga hälsningar,<br/>alt_ctrl_</p>
     </div>
   `

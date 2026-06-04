@@ -3,7 +3,7 @@
 How email moves through the system for the contact form and the two shared
 mailboxes (`noreply@alltunderkontroll.se`, `contact@alltunderkontroll.se`).
 
-- **Form sends** are handled in code via **Resend** —
+- **Form sends** are handled in code via **Resend** -
   `frontend/src/app/api/contact/route.ts`.
 - **Direct emails** to the mailboxes are handled by M365 auto-reply rules
   (configured Exchange-side, not in code).
@@ -40,7 +40,7 @@ flowchart TD
     classDef done fill:#dcfce7,stroke:#16a34a,color:#14532d
 ```
 
-> The team can reply to a submission directly from `contact@` — the message sets
+> The team can reply to a submission directly from `contact@` - the message sets
 > `replyTo` to the user's address, so replies go to the user, not to `noreply@`.
 
 ---
@@ -61,7 +61,7 @@ flowchart TD
 ```
 
 > Excludes sender `noreply@alltunderkontroll.se`, so it only replies to direct
-> emails — never to the form's own submission (Flow 1).
+> emails - never to the form's own submission (Flow 1).
 
 ---
 
