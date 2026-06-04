@@ -77,7 +77,9 @@ export default function AIPhilosophySection() {
               ...fade(80),
             }}
           >
-            AI i loopen. <em style={{ fontStyle: 'italic', color: 'var(--accent)' }}>Experten i kontrollen.</em>
+            AI i <em style={{ fontStyle: 'italic', color: 'var(--accent)' }}>loopen.</em>
+            <br />
+            Experten i <em style={{ fontStyle: 'italic', color: 'var(--accent)' }}>kontrollen.</em>
           </h2>
 
           <p
@@ -100,7 +102,7 @@ export default function AIPhilosophySection() {
               fontSize: '0.85rem',
               color: 'var(--text-muted)',
               lineHeight: 1.7,
-              maxWidth: '420px',
+              maxWidth: '470px',
               fontFamily: 'var(--mono)',
               borderLeft: '2px solid var(--accent)',
               paddingLeft: '1rem',

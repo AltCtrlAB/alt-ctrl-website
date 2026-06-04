@@ -53,14 +53,13 @@ export default function CasesSection() {
       id="case"
       style={{
         padding: 'clamp(3rem, 6vw, 6rem) clamp(1.5rem, 5vw, 3rem)',
-        borderBottom: '1px solid var(--border)',
       }}
     >
       <div className="section-label" style={fadeStyle(0)}>
         Referenscase
       </div>
       <div className="section-title" style={fadeStyle(80)}>
-        Så här ser det ut när det funkar.
+        Så här ser det ut <span style={{ whiteSpace: 'nowrap' }}>när det funkar.</span>
       </div>
 
       <div

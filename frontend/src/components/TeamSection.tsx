@@ -55,8 +55,8 @@ export default function TeamSection() {
       <div className="section-label" style={fadeStyle(0)}>
         Teamet
       </div>
-      <div className="section-title" style={fadeStyle(80)}>
-        Business, strategi och teknik, utan mellanhänder.
+      <div className="section-title" style={{ ...fadeStyle(80), maxWidth: '820px' }}>
+        Business, strategi och teknik, <span style={{ whiteSpace: 'nowrap' }}>utan mellanhänder.</span>
       </div>
 
       <div

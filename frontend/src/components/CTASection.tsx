@@ -210,13 +210,29 @@ export default function CTASection() {
             ...fadeStyle(160),
             color: 'var(--text-secondary)',
             maxWidth: '480px',
-            margin: '0 auto 2.5rem',
+            margin: '0 auto 1.25rem',
             lineHeight: 1.7,
             fontSize: '1rem',
           }}
         >
           I ett kostnadsfritt inledande samtal på 30 minuter lär vi känna er verksamhet och berättar vad en förstudie
           faktiskt innebär för er. Ni bestämmer sedan om ni vill gå vidare.
+        </p>
+
+        <p
+          style={{
+            ...fadeStyle(200),
+            fontFamily: 'var(--mono)',
+            fontSize: '0.8rem',
+            color: 'var(--text-muted)',
+            letterSpacing: '0.02em',
+            margin: '0 auto 2.5rem',
+          }}
+        >
+          Eller ring oss direkt:{' '}
+          <a href="tel:+46768680671" style={{ color: 'var(--accent)', textDecoration: 'none' }}>
+            +46 76 868 06 71
+          </a>
         </p>
 
         {submitted ? (

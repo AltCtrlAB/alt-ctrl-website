@@ -4,7 +4,7 @@ The website for **alltunderkontroll AB** - a Swedish firm that helps companies i
 
 We work with companies of 20-300 employees across industries - especially manufacturing, processing, and heavily regulated sectors - to deliver measurable improvements in weeks, not quarters.
 
-**Contact:** [info@alltunderkontroll.se](mailto:info@alltunderkontroll.se)
+**Contact:** [contact@alltunderkontroll.se](mailto:contact@alltunderkontroll.se)
 
 ---
 
