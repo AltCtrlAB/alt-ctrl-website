@@ -1,5 +1,15 @@
+# Dependencies
+node_modules
+bun.lock
+
+# Build output / generated (kept in sync with .gitignore)
 .next
 out
 build
-node_modules
-bun.lock
+coverage
+*.tsbuildinfo
+next-env.d.ts
+.eslintcache
+
+# Env files
+.env*

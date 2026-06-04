@@ -56,14 +56,46 @@ export default function FAQSection() {
         borderBottom: '1px solid var(--border)',
       }}
     >
-      <div className="section-label">Vanliga frågor</div>
-      <div className="section-title">Frågor &amp; svar.</div>
+      <div
+        className="faq-grid"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '3fr 7fr',
+          gap: 'clamp(2rem, 5vw, 5rem)',
+          alignItems: 'start',
+        }}
+      >
+        <div className="faq-heading" style={{ position: 'sticky', top: '6rem' }}>
+          <div className="section-label">Vanliga frågor</div>
+          <div className="section-title" style={{ marginBottom: '1.25rem' }}>
+            Frågor &amp; svar.
+          </div>
+          <p
+            style={{
+              fontSize: '1rem',
+              color: 'var(--text-secondary)',
+              lineHeight: 1.75,
+            }}
+          >
+            Hittar du inte svaret du söker?
+            <br />
+            Hör av dig så reder vi ut det.
+          </p>
+        </div>
 
-      <div style={{ maxWidth: '720px' }}>
-        {faqItems.map((item) => (
-          <FAQItemComponent key={item.num} item={item} />
-        ))}
+        <div>
+          {faqItems.map((item) => (
+            <FAQItemComponent key={item.num} item={item} />
+          ))}
+        </div>
       </div>
+
+      <style>{`
+        @media (max-width: 900px) {
+          .faq-grid { grid-template-columns: 1fr !important; }
+          .faq-heading { position: static !important; }
+        }
+      `}</style>
     </section>
   )
 }
@@ -104,8 +136,9 @@ function FAQItemComponent({ item }: { item: FAQItem }) {
         >
           {item.num}
         </span>
-        <p
+        <span
           style={{
+            display: 'block',
             flex: 1,
             fontSize: '1rem',
             fontWeight: 500,
@@ -113,8 +146,8 @@ function FAQItemComponent({ item }: { item: FAQItem }) {
           }}
         >
           {item.question}
-        </p>
-        <div
+        </span>
+        <span
           style={{
             width: '28px',
             height: '28px',
@@ -133,7 +166,7 @@ function FAQItemComponent({ item }: { item: FAQItem }) {
           }}
         >
           +
-        </div>
+        </span>
       </button>
 
       <div

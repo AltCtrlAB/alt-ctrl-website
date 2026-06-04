@@ -97,10 +97,13 @@ export default function RootLayout({
               logo: 'https://www.alltunderkontroll.se/assets/og-image.png',
               description:
                 'Vi bygger skräddarsydda AI- och SaaS-lösningar till fast pris, anpassade efter kundens befintliga system och miljö.',
-              email: 'info@alltunderkontroll.se',
-              sameAs: ['https://www.linkedin.com/company/allt-under-kontroll-ab/'],
+              email: 'contact@alltunderkontroll.se',
+              telephone: '+46768680671',
+              sameAs: ['https://www.linkedin.com/company/allt-under-kontroll/'],
               address: {
                 '@type': 'PostalAddress',
+                streetAddress: 'Östra Hamngatan 16',
+                postalCode: '411 09',
                 addressLocality: 'Göteborg',
                 addressCountry: 'SE',
               },
