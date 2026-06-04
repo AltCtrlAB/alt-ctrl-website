@@ -1,5 +1,22 @@
 import { NextResponse } from 'next/server'
 
+// Defensive floor above Vercel's low Hobby default; not the believed root cause.
+export const maxDuration = 15
+
+// Mask the GDPR-sensitive local-part, keep the domain: user@example.com -> u***@example.com
+function maskEmail(email: string): string {
+  const at = email.lastIndexOf('@')
+  if (at <= 0) return '***'
+  return `${email[0]}***@${email.slice(at + 1)}`
+}
+
+// Unanchored/global twin of EMAIL_RE: finds addresses *inside* a larger string so we
+// can mask them out of Graph error bodies (which can echo the recipient) before logging.
+const EMAIL_GLOBAL_RE = /[^\s@]+@[^\s@]+\.[^\s@]+/g
+function redactEmails(text: string): string {
+  return text.replace(EMAIL_GLOBAL_RE, maskEmail)
+}
+
 function escapeHtml(str: string): string {
   return str
     .replace(/&/g, '&amp;')
@@ -198,7 +215,11 @@ export async function POST(request: Request) {
   try {
     await sendMail(token, env.sender, confirmationMessage)
   } catch (err) {
-    console.warn('Graph sendMail (confirmation) failed:', err)
+    const detail = err instanceof Error ? err.message : String(err)
+    console.error('Graph sendMail (confirmation) failed:', {
+      recipient: maskEmail(trimmedEmail),
+      detail: redactEmails(detail),
+    })
   }
 
   return NextResponse.json({ success: true })
