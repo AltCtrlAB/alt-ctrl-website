@@ -75,7 +75,15 @@ export default function ProcessSection() {
   useEffect(() => {
     measure()
     window.addEventListener('resize', measure)
-    return () => window.removeEventListener('resize', measure)
+    // Re-measure when the grid itself reflows (e.g. web fonts swapping in), which
+    // doesn't fire a window resize event, so node positions stay accurate.
+    const el = gridRef.current
+    const ro = el ? new ResizeObserver(() => measure()) : null
+    ro?.observe(el as Element)
+    return () => {
+      window.removeEventListener('resize', measure)
+      ro?.disconnect()
+    }
   }, [measure])
 
   useEffect(() => {

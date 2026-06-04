@@ -82,7 +82,7 @@ export default function CustomBanner() {
           ))}
         </div>
 
-        <div className="banner-buttons" style={{ gap: '0.85rem', flexWrap: 'wrap' }}>
+        <div className="banner-buttons" style={{ display: 'none', gap: '0.85rem', flexWrap: 'wrap' }}>
           {contacts.map((c) => (
             <ActionButton key={c.key} c={c} />
           ))}

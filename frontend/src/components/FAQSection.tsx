@@ -136,8 +136,9 @@ function FAQItemComponent({ item }: { item: FAQItem }) {
         >
           {item.num}
         </span>
-        <p
+        <span
           style={{
+            display: 'block',
             flex: 1,
             fontSize: '1rem',
             fontWeight: 500,
@@ -145,8 +146,8 @@ function FAQItemComponent({ item }: { item: FAQItem }) {
           }}
         >
           {item.question}
-        </p>
-        <div
+        </span>
+        <span
           style={{
             width: '28px',
             height: '28px',
@@ -165,7 +166,7 @@ function FAQItemComponent({ item }: { item: FAQItem }) {
           }}
         >
           +
-        </div>
+        </span>
       </button>
 
       <div
