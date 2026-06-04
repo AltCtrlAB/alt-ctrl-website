@@ -13,7 +13,7 @@ mailboxes (`noreply@alltunderkontroll.se`, `contact@alltunderkontroll.se`).
 | Style    | Meaning                          |
 | -------- | -------------------------------- |
 | Blue     | User action                      |
-| Purple   | Our backend (Next.js + Graph)    |
+| Purple   | Our backend (Next.js + Resend)   |
 | Slate    | An email message                 |
 | Green    | Desired end state                |
 | Amber    | M365 auto-reply (Exchange rule)  |
