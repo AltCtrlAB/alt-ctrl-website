@@ -83,6 +83,24 @@ body {
   box-shadow: inset 2px 0 0 var(--accent);
 }
 
+/* ── Primary button (same look as the contact form's submit) ── */
+.btn-primary {
+  display: inline-block;
+  padding: 0.85rem 2rem;
+  background: var(--accent);
+  border-radius: 4px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--white);
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.btn-primary:hover {
+  background: var(--accent-dark);
+}
+
 /* ── Arrow circle button ── */
 .arrow-circle {
   width: 28px;
