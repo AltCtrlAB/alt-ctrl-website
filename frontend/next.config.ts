@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       { source: '/fortnox/:path*', headers: noIndex },
+      { source: '/spiris/:path*', headers: noIndex },
       { source: '/api/:path*', headers: noIndex },
     ]
   },

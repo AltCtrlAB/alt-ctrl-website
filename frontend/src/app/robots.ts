@@ -5,8 +5,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      // Customer-only Fortnox activation flow, plus the API routes.
-      disallow: ['/fortnox', '/api/'],
+      // Customer-only Fortnox and Spiris activation flows, plus the API routes.
+      disallow: ['/fortnox', '/spiris', '/api/'],
     },
     sitemap: 'https://www.alltunderkontroll.se/sitemap.xml',
   }
